@@ -7,7 +7,7 @@
 ## DEFINE VPC
 #---------------------------------------------------------
 variable "vpc-name" {
-  default = "terraform-test"
+  default = "terraform"
 }
 
 variable "resource_group" {
