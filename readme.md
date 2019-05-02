@@ -1,4 +1,4 @@
-## IBMCLOUD-TERRAFORM-VPC
+## IBMCLOUD-TERRAFORM-VPC-NTIER-PLAN
 A typical requirement for a Virtual Private Cloud (VPC) is the ability to logically isolate a public cloud into different private networks made up tiers and/or different applications environments.
 Within each VPC your application leverage different availability zones to increase the resilience of the application.   Building the required construct for the network and security across VPC's,
 Availability Zones, and the individual network subnets with each can be tedious to implement manually.
