@@ -42,7 +42,7 @@ resource "ibm_is_subnet" "webtier-subnet-zone1" {
   zone            = "${var.zone1}"
   ipv4_cidr_block = "${var.webtier-subnet-zone-1}"
   network_acl     = "${ibm_is_network_acl.webtier_acl.id}"
-  public_gateway  = true
+  public_gateway  = "${ibm_is_public_gateway.pubgw-zone1.id}"
 
   provisioner "local-exec" {
     command = "sleep 300"

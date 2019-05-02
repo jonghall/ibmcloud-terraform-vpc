@@ -57,6 +57,7 @@ The Internal release of ibm-terraform-provider with VPC supports for:
 
 * Modify network ACLs for each subnet in the network-acls.tf file.
 * Modify Security Group rules for each tier in the securitygroups.tf file.
+* Modify GLB configuration in the cis.cf file.
 * Modify the cloud-init-*.tf files to customize post provisioning installation and configuration
 
 # Execute plan with Terraform
