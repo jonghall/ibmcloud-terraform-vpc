@@ -51,13 +51,13 @@ The Internal release of ibm-terraform-provider with VPC supports for:
     * DEFINE CIDR Blocks section defines the CIDR blocks used in each zone
     * DEFINE Subnets Section(s) defines the subnet and subnet mask for each subnet in each zone.
     * DEFINE OS & SSHKEY define common attributes for compute instances
-    * DEFINE Webtier, AppTier and DB Tier profiles allow you to configure profiles for each, the quantity, name template, and cloud-init configuration files
+    * DEFINE Webtier, AppTier and DB Tier profiles allow you to configure profiles for each, the quantity, and name template.
     * DEFINE Load Balancer section allow you to configure the webtier LBaaS
     * DEFINE VPNaaS section allows you to configure a site-to-VPN connection
 
 * Modify network ACLs for each subnet in the network-acls.tf file.
 * Modify Security Group rules for each tier in the securitygroups.tf file.
-* Modify the *-cloud-init.txt files to include any post provisioning instructions for compute instances
+* Modify the cloud-init-*.tf files to customize post provisioning installation and configuration
 
 # Execute plan with Terraform
 For planning phase
