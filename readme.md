@@ -15,7 +15,7 @@ on-premise API services or management of the cloud infrastructure.    To logical
 
 
 # vpc-ibm-terraform-provider
-This project is currently based on internal_v0.16.0 of the IBM Cloud Terraform provider which has implemented for follwoing IBM Cloud RIAS API
+This project is currently based on [internal_v0.16.0](https://github.ibm.com/blueprint/vpc-ibm-terraform-provider) of the IBM Cloud Terraform provider which has implemented for following IBM Cloud RIAS API
 The Internal release of ibm-terraform-provider with VPC supports for:   
 
 ## Current support
@@ -46,14 +46,14 @@ The Internal release of ibm-terraform-provider with VPC supports for:
 
 * Modify variables located in the variable.tf file.
 
-** DEFINE VPC section defines the name and location of VPC
-** DEFINE Zones section defined the zones to be used.
-** DEFINE CIDR Blocks section defines the CIDR blocks used in each zone
-** DEFINE Subnets Section(s) defines the subnet and subnet mask for each subnet in each zone.
-** DEFINE OS & SSHKEY define common attributes for compute instances
-** DEFINE Webtier, AppTier and DB Tier profiles allow you to configure profiles for each, the quantity, name template, and cloud-init configuration files
-** DEFINE Load Balancer section allow you to configure the webtier LBaaS
-** DEFINE VPNaaS section allows you to configure a site-to-VPN connection
+    * DEFINE VPC section defines the name and location of VPC
+    * DEFINE Zones section defined the zones to be used.
+    * DEFINE CIDR Blocks section defines the CIDR blocks used in each zone
+    * DEFINE Subnets Section(s) defines the subnet and subnet mask for each subnet in each zone.
+    * DEFINE OS & SSHKEY define common attributes for compute instances
+    * DEFINE Webtier, AppTier and DB Tier profiles allow you to configure profiles for each, the quantity, name template, and cloud-init configuration files
+    * DEFINE Load Balancer section allow you to configure the webtier LBaaS
+    * DEFINE VPNaaS section allows you to configure a site-to-VPN connection
 
 * Modify network ACLs for each subnet in the network-acls.tf file.
 * Modify Security Group rules for each tier in the securitygroups.tf file.
