@@ -15,7 +15,8 @@ on-premise API services or management of the cloud infrastructure.    To logical
 
 
 # vpc-ibm-terraform-provider
-This project is currently based on [internal_v0.16.0](https://github.ibm.com/blueprint/vpc-ibm-terraform-provider) of the IBM Cloud Terraform provider which has implemented for following IBM Cloud RIAS API
+This project is currently for documentation purposes and is based on a internal version of the IBM Cloud Terraform provider which has not yet been merged with the public provider.
+
 The Internal release of ibm-terraform-provider with VPC supports for:   
 
 ## Current support
@@ -36,9 +37,9 @@ The Internal release of ibm-terraform-provider with VPC supports for:
 * IBM IS IKE Policy (ibm_is_ike_policy)
 * IBM IS IPSec Policy (ibm_is_ip_sec_policy)
 * IBM IS load balancer (ibm_is_lb)
-* IBM IS load balancer listener (ibm_is_lb_listener)
+* IBM IS load balancer listener (ibm_is_lb_listener) ** not working
 * IBM IS load balancer pool (ibm_is_lb_pool)
-* IBM IS load balancer pool memeber(ibm_is_lb_pool_member)
+* IBM IS load balancer pool memeber(ibm_is_lb_pool_member) ** not working
 
 # Configuring your n-tiered VPC
 
