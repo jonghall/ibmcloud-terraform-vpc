@@ -32,7 +32,7 @@ runcmd:
  - sudo apt-get install logdna-agent < "/dev/null"
  - sudo mysql -u root -Bse "CREATE DATABASE wordpress;"
  - sudo mysql -u root -Bse "CREATE USER wpuser;"
- - sudo mysql -u root -Bse "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wpuser@'%' IDENTIFIED BY 'mypassword';"
+ - sudo mysql -u root -Bse "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wpuser@'%' IDENTIFIED BY 'dbpassword';"
  - sudo mysql -u root -Bse "FLUSH PRIVILEGES;"
  - sudo logdna-agent -k logdnakey
  - sudo logdna-agent -s LOGDNA_APIHOST=api.us-south.logging.cloud.ibm.com
@@ -41,7 +41,7 @@ runcmd:
  - sudo update-rc.d logdna-agent defaults
  - sudo /etc/init.d/logdna-agent start
  - '\curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- -a sysdig_account -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:vpctest'
- - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\10.0.0.0/" mysqld.cnf
+ - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\00.0.0.0/" mysqld.cnf
  - reboot
  EOF
   }
