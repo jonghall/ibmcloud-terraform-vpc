@@ -11,6 +11,10 @@ variable "vpc-name" {
 }
 
 variable "resource_group" {
+  default = "vpc_sandbox"
+}
+
+variable "cis_resource_group" {
   default = "default"
 }
 
@@ -29,42 +33,42 @@ variable "zone2" {
 ## DEFINE CIDR Blocks to be used in each zone
 #---------------------------------------------------------
 variable "address-prefix-1" {
-  default = "172.21.0.0/18"
+  default = "172.21.0.0/21"
 }
 
 variable "address-prefix-2" {
-  default = "172.21.64.0/18"
+  default = "172.21.8.0/21"
 }
 
 #---------------------------------------------------------
 ## DEFINE subnets for zone 1
 #---------------------------------------------------------
 
-variable "webtier-subnet-zone-1" {
+variable "webapptier-subnet-zone-1" {
   default = "172.21.0.0/24"
 }
 
-variable "apptier-subnet-zone-1" {
+variable "dbtier-subnet-zone-1" {
   default = "172.21.1.0/24"
 }
 
-variable "dbtier-subnet-zone-1" {
+variable "vpn-subnet-zone-1" {
   default = "172.21.2.0/24"
 }
 
 #---------------------------------------------------------
 ## DEFINE subnets for zone 2
 #---------------------------------------------------------
-variable "webtier-subnet-zone-2" {
-  default = "172.21.64.0/24"
-}
-
-variable "apptier-subnet-zone-2" {
-  default = "172.21.65.0/24"
+variable "webapptier-subnet-zone-2" {
+  default = "172.21.8.0/24"
 }
 
 variable "dbtier-subnet-zone-2" {
-  default = "172.21.66.0/24"
+  default = "172.21.9.0/24"
+}
+
+variable "vpn-subnet-zone-2" {
+  default = "172.21.10.0/24"
 }
 
 #---------------------------------------------------------
@@ -79,7 +83,7 @@ variable "cis_instance_name" {
 }
 
 variable "dns_name" {
-  default = "www.webappdemo."
+  default = "webappdemo."
 }
 
 #---------------------------------------------------------
@@ -92,39 +96,25 @@ variable "ssh_public_key" {
 #---------------------------------------------------------
 ## DEFINE OS image to be used for compute instances
 #---------------------------------------------------------
-# CENTOS Image
+
+#image = Ubuntu-16.04-amd64
 variable "image" {
-  default = "7eb4e35b-4257-56f8-d7da-326d85452591"
+  default = "7eb4e35b-4257-56f8-d7da-326d85452591 "
 }
 
 #---------------------------------------------------------
-## DEFINE webtier compute instance profile & quantity
+## DEFINE webapptier compute instance profile & quantity
 #---------------------------------------------------------
-variable "profile-webserver" {
+variable "profile-webappserver" {
   default = "cc1-2x4"
 }
 
-variable "webserver-name" {
-  default = "webserver%02d"
+variable "webappserver-name" {
+  default = "webapp%02d"
 }
 
-variable "webserver-count" {
+variable "webappserver-count" {
   default = 2
-}
-
-#---------------------------------------------------------
-## DEFINE apptier compute instance profile & quantity
-#---------------------------------------------------------
-variable "profile-appserver" {
-  default = "cc1-2x4"
-}
-
-variable "appserver-name" {
-  default = "appserver%02d"
-}
-
-variable "appserver-count" {
-  default = 1
 }
 
 #---------------------------------------------------------
@@ -135,7 +125,7 @@ variable "profile-dbserver" {
 }
 
 variable "dbserver-name" {
-  default = "dbserver%02d"
+  default = "mysql%02d"
 }
 
 variable "dbserver-count" {
@@ -143,14 +133,14 @@ variable "dbserver-count" {
 }
 
 #---------------------------------------------------------
-## DEFINE Load Balancer for webtier
+## DEFINE Load Balancer for webapptier
 #---------------------------------------------------------
 
-variable "webtier-lb-connections" {
+variable "webapptier-lb-connections" {
   default = 2000
 }
 
-variable "webtier-lb-algorithm" {
+variable "webapptier-lb-algorithm" {
   default = "round_robin"
 }
 
