@@ -32,7 +32,7 @@ runcmd:
  - sudo apt-get install logdna-agent < "/dev/null"
  - sudo mysql -u root -Bse "CREATE DATABASE wordpress;"
  - sudo mysql -u root -Bse "CREATE USER wpuser;"
- - sudo mysql -u root -Bse "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wpuser@'%' IDENTIFIED BY 'dbpassword';"
+ - sudo mysql -u root -Bse "GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER ON wordpress.* TO wpuser@'%' IDENTIFIED BY 'DBpassword';"
  - sudo mysql -u root -Bse "FLUSH PRIVILEGES;"
  - sudo logdna-agent -k logdnakey
  - sudo logdna-agent -s LOGDNA_APIHOST=api.us-south.logging.cloud.ibm.com
