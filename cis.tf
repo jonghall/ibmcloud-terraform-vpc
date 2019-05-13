@@ -1,6 +1,6 @@
 # IBM Cloud Resource Group the CIS instance will be created under
 data "ibm_resource_group" "resource" {
-  name = "${var.resource_group}"
+  name = "${var.cis_resource_group}"
 }
 
 data "ibm_cis" "cis_instance" {
@@ -31,15 +31,9 @@ resource "ibm_cis_origin_pool" "vpc-lbaas" {
   # Should be replaced with the URL, but currently not exposed in ibm_is_lb
   origins = [{
     name    = "${var.vpc-name}-webtier-lbaas-1"
-    address = "${ibm_is_lb.webtier-lb.public_ips[0]}"
+    address = "${ibm_is_lb.webapptier-lb.hostname}"
     enabled = true
-  },
-    {
-      name    = "${var.vpc-name}-webtier-lbaas-2"
-      address = "${ibm_is_lb.webtier-lb.public_ips[1]}"
-      enabled = true
-    },
-  ]
+  }]
 
   description = "${var.vpc-name}-webtier-lb"
   enabled     = true
@@ -53,6 +47,6 @@ resource "ibm_cis_global_load_balancer" "glb" {
   fallback_pool_id = "${ibm_cis_origin_pool.vpc-lbaas.id}"
   default_pool_ids = ["${ibm_cis_origin_pool.vpc-lbaas.id}"]
   session_affinity = "cookie"
-  description      = "GLB for webappdemo"
+  description      = "Global Loadbalancer for webappdemo"
   proxied          = true
 }
