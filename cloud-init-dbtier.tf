@@ -40,8 +40,7 @@ runcmd:
  - sudo logdna-agent -t webapp-demo
  - sudo update-rc.d logdna-agent defaults
  - sudo /etc/init.d/logdna-agent start
- - '\curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- -a sysdig_account -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:vpctest'
- - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\00.0.0.0/" mysqld.cnf
+ - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\0.0.0.0/" mysqld.cnf
  - reboot
  EOF
   }
