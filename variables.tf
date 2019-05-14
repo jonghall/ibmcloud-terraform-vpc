@@ -7,7 +7,7 @@
 ## DEFINE VPC
 #---------------------------------------------------------
 variable "vpc-name" {
-  default = "terraform"
+  default = "wp-demo"
 }
 
 variable "resource_group" {
@@ -83,7 +83,7 @@ variable "cis_instance_name" {
 }
 
 variable "dns_name" {
-  default = "webappdemo."
+  default = "wordpress."
 }
 
 #---------------------------------------------------------
@@ -99,7 +99,7 @@ variable "ssh_public_key" {
 
 #image = Ubuntu-16.04-amd64
 variable "image" {
-  default = "7eb4e35b-4257-56f8-d7da-326d85452591 "
+  default = "7eb4e35b-4257-56f8-d7da-326d85452591"
 }
 
 #---------------------------------------------------------
