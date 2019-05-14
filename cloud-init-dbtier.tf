@@ -40,7 +40,7 @@ runcmd:
  - sudo logdna-agent -t webapp-demo
  - sudo update-rc.d logdna-agent defaults
  - sudo /etc/init.d/logdna-agent start
- - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\0.0.0.0/" mysqld.cnf
+ - sudo sed -i "s/^\(bind-address\s*=\s*\).*\$/\10.0.0.0/" mysqld.cnf
  - reboot
  EOF
   }
