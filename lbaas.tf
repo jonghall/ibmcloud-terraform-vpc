@@ -9,9 +9,10 @@ resource "ibm_is_lb" "webapptier-lb" {
 }
 
 resource "ibm_is_lb_listener" "webapptier-lb-listener" {
-  lb       = "${ibm_is_lb.webapptier-lb.id}"
-  port     = "80"
-  protocol = "http"
+  lb           = "${ibm_is_lb.webapptier-lb.id}"
+  default_pool = "${element(split("/", ibm_is_lb_pool.webapptier-lb-pool.id),1)}"
+  port         = "80"
+  protocol     = "http"
 }
 
 resource "ibm_is_lb_pool" "webapptier-lb-pool" {
