@@ -65,21 +65,21 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       direction   = "ingress"
       action      = "allow"
       source      = "${var.onprem_cidr}"
-      destination = "172.18.0.0/20"
+      destination = "172.21.0.0/20"
     },
     {
       name        = "${var.vpc-name}-webapptier-within-vpc"
       direction   = "ingress"
       action      = "allow"
-      source      = "172.18.0.0/20"
-      destination = "172.18.0.0/20"
+      source      = "172.21.0.0/20"
+      destination = "172.21.0.0/20"
     },
     {
       name        = "${var.vpc-name}-webapptier-web-http-traffic"
       direction   = "ingress"
       action      = "allow"
       source      = "0.0.0.0/0"
-      destination = "172.18.0.0/20"
+      destination = "172.21.0.0/20"
 
       tcp = {
         port_min = "80"
@@ -142,14 +142,14 @@ resource "ibm_is_network_acl" "dbtier_acl" {
       direction   = "ingress"
       action      = "allow"
       source      = "${var.onprem_cidr}"
-      destination = "172.18.0.0/20"
+      destination = "172.21.0.0/20"
     },
     {
       name        = "${var.vpc-name}-dbtier-within-vpc"
       direction   = "ingress"
       action      = "allow"
-      source      = "172.18.0.0/20"
-      destination = "172.18.0.0/20"
+      source      = "172.21.0.0/20"
+      destination = "172.21.0.0/20"
     },
     {
       name        = "${var.vpc-name}-dbtier-allow-all-egress"

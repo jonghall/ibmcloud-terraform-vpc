@@ -114,7 +114,7 @@ variable "webappserver-name" {
 }
 
 variable "webappserver-count" {
-  default = 2
+  default = 1
 }
 
 #---------------------------------------------------------

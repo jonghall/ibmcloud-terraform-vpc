@@ -50,6 +50,13 @@ resource "ibm_is_security_group_rule" "webapptier-securitygroup-rule5" {
   }
 }
 
+resource "ibm_is_security_group_rule" "webapptier-securitygroup-rule6" {
+  group      = "${ibm_is_security_group.webapptier-securitygroup.id}"
+  direction  = "egress"
+  ip_version = "ipv4"
+  remote     = "0.0.0.0/0"
+}
+
 #---------------------------------------------------------
 # Add dbtier rules to security group
 #---------------------------------------------------------

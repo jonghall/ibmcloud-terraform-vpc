@@ -7,6 +7,7 @@ resource "ibm_is_subnet" "vpn-subnet-zone-1" {
   zone            = "${var.zone1}"
   ipv4_cidr_block = "${var.vpn-subnet-zone-1}"
   network_acl     = "${ibm_is_network_acl.vpn_acl.id}"
+  public_gateway  = "${ibm_is_public_gateway.pubgw-zone1.id}"
 
   provisioner "local-exec" {
     command = "sleep 300"
@@ -20,6 +21,7 @@ resource "ibm_is_subnet" "vpn-subnet-zone-2" {
   zone            = "${var.zone2}"
   ipv4_cidr_block = "${var.vpn-subnet-zone-2}"
   network_acl     = "${ibm_is_network_acl.vpn_acl.id}"
+  public_gateway  = "${ibm_is_public_gateway.pubgw-zone2.id}"
 
   provisioner "local-exec" {
     command = "sleep 300"
