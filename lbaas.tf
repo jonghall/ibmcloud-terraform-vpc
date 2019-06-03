@@ -3,9 +3,10 @@
 #----------------------------------------------------------
 
 resource "ibm_is_lb" "webapptier-lb" {
-  name           = "${var.vpc-name}-webapptier1-lb"
-  resource_group = "${data.ibm_resource_group.group.id}"
-  subnets        = ["${ibm_is_subnet.webapptier-subnet-zone1.id}", "${ibm_is_subnet.webapptier-subnet-zone2.id}"]
+  name = "${var.vpc-name}-webapptier01-lb"
+
+  #  resource_group = "${data.ibm_resource_group.group.id}"
+  subnets = ["${ibm_is_subnet.webapptier-subnet-zone1.id}", "${ibm_is_subnet.webapptier-subnet-zone2.id}"]
 }
 
 resource "ibm_is_lb_listener" "webapptier-lb-listener" {
@@ -17,7 +18,7 @@ resource "ibm_is_lb_listener" "webapptier-lb-listener" {
 
 resource "ibm_is_lb_pool" "webapptier-lb-pool" {
   lb                 = "${ibm_is_lb.webapptier-lb.id}"
-  name               = "${var.vpc-name}-webapptier-lb-pool"
+  name               = "${var.vpc-name}-webapptier-lb-pool1"
   protocol           = "http"
   algorithm          = "${var.webapptier-lb-algorithm}"
   health_delay       = "5"

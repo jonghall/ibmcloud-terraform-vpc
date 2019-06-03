@@ -15,9 +15,12 @@ on-premise API services or management of the cloud infrastructure.    To logical
 
 
 # vpc-ibm-terraform-provider
-This project is currently for documentation purposes and is based on a internal version of the IBM Cloud Terraform provider which has not yet been merged with the public provider.
+This project is currently for documentation purposes and is based on v.0.17.0 version the IBM Cloud Terraform provider which has not yet been merged with the public provider.
+This provider can be found at: https://github.com/IBM-Cloud/terraform-provider-ibm
 
-The Internal release of ibm-terraform-provider with VPC supports for:   
+Documentation https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/
+
+The v.0.17.0 add support for:   
 
 ## Current support
 
