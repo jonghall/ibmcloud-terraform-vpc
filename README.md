@@ -106,9 +106,8 @@ as to show the ability to automate deployment and configuration tasks.
 | IBM Cloud Databases | | A VSI based instance of MySQL was chosen instead of a Database-as-a-Service capability to illustrate both the ability to create logial network constructs and security and the ability to use Terraform and Ansible to configure the environment.|
 
 ## Documented Steps
-To build this scenario we will first deploy the VPC infrastructure followed by the deployment and configuration of the application. Then, we will build and configure an HA application cluster to enable scalability of the application when higher traffic requires new nodes added to the load balancer.
 
-## Prerequisites
+### Prerequisites
 
 The following software needs to be installed:
 1. Terraform 0.11 or greater
@@ -126,9 +125,6 @@ The following must be configured prior to running Terraform / Ansible
 2. [Establish site-to-site VPN]()
 3. [Configure Application Layer using Ansible](docs/WebApp.md)
 
-## Error Scenarios
-
-Application layer failures are included during the deployment and test of the software stack. No infrastructure failures were introduced.
 
 ## Additional Documentation Provided
 
