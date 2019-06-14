@@ -37,10 +37,10 @@ High Level Architecture
 Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through a Load Balancer) and data.
 
 ### Infrastructure Architecture
-![3tier Web App - Infrastructure](/docs/images/3TWebAppDrawio.png)
+![3tier Web App - Infrastructure](/docs/images/infrastructure-architecture.png)
 
 ### Application Architecture
-![3tuer Web App - Application](docs/images/3TWebAppDataFlowDrawio.png)
+![3tuer Web App - Application](docs/images/application-data-flow.png)
 
 #### *Not depicted in drawings*
 - VPNaaS or any VPN Connections
