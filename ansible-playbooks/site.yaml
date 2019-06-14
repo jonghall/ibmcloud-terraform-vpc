@@ -1,0 +1,27 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: Apply common configuration to all nodes in inventory
+  hosts: all
+  remote_user: root
+  gather_facts: no
+
+  roles:
+    - common
+
+- name: Configure and deploy the web and application code to webapptier
+  hosts: webapptier
+  remote_user: root
+  gather_facts: no
+
+  roles:
+    - web
+
+- name: Configure Mysql Servers in dbtier
+  hosts: dbtier
+  remote_user: root
+  gather_facts: no
+
+  roles:
+    - db
+
