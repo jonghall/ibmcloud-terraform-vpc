@@ -11,7 +11,7 @@ A typical Ecommerce web app deployed across 2or 3 availability zones, each consi
 and databases.   Often capabilities like Cloud Object Storage are used for static images/media, and cloud databases are used for sessions data or search.  Addition a VPN is often required for
 on-premise API services or management of the cloud infrastructure.    To logically isolate environments, Separate VPCs are created to completely isolate PROD from other DEV and test environments.  
 
-![](topology.png?raw=true)
+![](../topology.png?raw=true)
 
 
 # vpc-ibm-terraform-provider
