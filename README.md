@@ -122,7 +122,7 @@ The following must be configured prior to running Terraform / Ansible
 ### Deploy VPC Infrastructure using Terraform & Ansible
 
 1. [Deploy Infrastructure using Terraform](docs/terraform.md)
-2. [Establish site-to-site VPN]()
+2. [Establish site-to-site VPN](docs/vpn.md)
 3. [Configure Application Layer using Ansible](docs/WebApp.md)
 
 

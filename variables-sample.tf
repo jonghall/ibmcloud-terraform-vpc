@@ -32,6 +32,10 @@ variable "zone2" {
 #---------------------------------------------------------
 ## DEFINE CIDR Blocks to be used in each zone
 #---------------------------------------------------------
+variable "address-prefix-vpc" {
+  default = "172.21.0.0/20"
+}
+
 variable "address-prefix-1" {
   default = "172.21.0.0/21"
 }
