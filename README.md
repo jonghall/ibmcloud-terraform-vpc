@@ -2,19 +2,20 @@
 
 ## Purpose
 
-The purpose of this project is to demonstrate, through the use of a re-useable asset, the concept of [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code)
-and how the ability to automate deployment enables more consistent and faster deployment of workloads into a Cloud VPC, using the IBM Cloud, Terraform, and Ansible to deploy a typical cloud workload.
+The purpose of this project is to demonstrate, through the use of a reuseable asset, the concept of [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code)
+and how it can enable the ability to automate deployment facilitating a more consistent and faster development, testing, and deployment of workloads into a cloud, using the
+[IBM Cloud VPC Infrastructure](https://cloud.ibm.com/vpc), [HashiCorp's Terraform](https://www.terraform.io/), and [Red Hat's Ansible](https://www.redhat.com/en/technologies/management/ansible).
   
-A [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture separates the web / application and data tiers by placing them into separate sub-networks which are logically isolated using virtual network security constructs
-which can be defined and configured via an API.
+A [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture was chosen as a typical cloud workload.   A 3-tier architecture separates the web / application and data tiers
+by placing them into separate sub-networks which are logically isolated using virtual network security constructs which can be defined and configured via an API.   [WordPress](https://wordpress.com),
+a popular web, blog and e-commerce platform and [MySQL](https://www.mysql.com/), a typical open source database, installed on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) were chosen
+as the core software stack because to their simplicity and broad acceptance.
 
-This document explains how the automated deployment of [WordPress](https://wordpress.com) on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) running in the
-[IBM Virtual Private Cloud Infrastructure](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-about) (VPC) can be acheived.
-The main objectives of this project is to educate enterprise devops users and system administrators on how to leverage both the features of [IBM VPC](https://cloud.ibm.com/vpc) 
-as well as how to use  [HashiCorps' Terraform](https://www.terraform.io/) with the [IBM Cloud Provider](https://github.com/IBM-Cloud/terraform-provider-ibm) and [Red Hat's Ansible](https://www.redhat.com/en/technologies/management/ansible)
-to deploy and configure a fully tested and working 3-tier application environment.
+The main objectives of this project is to educate enterprise DevOps users and system administrators on how to leverage both the features of [IBM Cloud VPC Infrastructure](https://cloud.ibm.com/vpc) 
+as well as how to use the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm) and Ansible.
+to deploy and fully configure a working 3-tier application.
 
-This automated approach leveraged teh [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app) documentation.
+This automated approach leveraged previous [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app) documentation.
 
 Features:
 1. Application
