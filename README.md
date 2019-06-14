@@ -1,4 +1,4 @@
-# Deploying a Basic 3-Tier Web App deployed into a VPC using Terraform & Ansible
+# Deploying a 3-Tier Web App in a Virtual Private Cloud using Terraform & Ansible
 
 ## Purpose
 
@@ -20,24 +20,32 @@ This automated approach leveraged previous [Solution Tutorials - Highly Availabl
 High Level Architecture
 
 1. Infrastructure
-  - Public isolation using a VPC
+  - Public Cloud isolation using a VPC
   - RFC1918 private bring-your-own-IP addresses
-  - Application and data layers deployed on isolated on separate subnets accross different availability zones
-  - Network isolation defined using Security Groups and ACLs
+  - Application and data layers deployed on isolated subnets accross different availability zones
+  - Network isolation defined logically using Security Groups and ACLs
   - Global DDOS and Global Load Balancing 
   - VPN-as-a-Service to establish remote secure connectivity between on-pream and the VPC
   - SysDig & LogDNA for infrastructure and application monitoring
 
 2. Application
-  - A horizontally scaleable web application across two different availability zones
-  - Multiple separate database servers across two availability zones
+  - A horizontally scaleable web application deployed into a two different availability zones
+  - Multiple database servers across two availability zones
   - A master/slave data replication strategy across availability zones
 
+## VPC Architecture
 Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through a Load Balancer) and data.
 
-## VPC Architecture
+###Infrastructure Architecture
+![3tier Web App - Infrastructure](docs/images/3TWebAppDrawio.png)
 
-![3tier Web App](docs/images/3TWebAppDrawio.png)
+###Application Architecture
+![3tuer Web App - Application](docs/images/3TWebAppDataFlowDrawio.png)
+
+Not shown
+- VPNaaS or any VPN Connections
+- Cloud Internet Services (GLB function or DNS)
+- Management Flows
 
 ## Assumptions and Limitations
 
@@ -103,34 +111,26 @@ To build this scenario we will first deploy the VPC infrastructure followed by t
 ## Prerequisites
 
 The following software needs to be installed:
-1. Terraform 0.11 or greater is installed
-2. The [IBM Cloud Terraform Provider version 0.17.0](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/) or newer is present in the Terraform plugin directory 
-2. Ansible 2.8 is installed
+1. Terraform 0.11 or greater
+2. [IBM Cloud Terraform Provider version 0.17.0](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/) 
+2. Ansible 2.8
 
-The following must be configured before running the Terraform / Ansible scripts
-1. Have access to a public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-ssh-keys#ssh-keys).
-2. Create a new resource group called `wordpress-demo` as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
-3. Once the `wordpress-demo` resource group has been created, update user permissions and provide the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-managing-user-permissions-for-vpc-resources)
+The following must be configured prior to running Terraform / Ansible
+1. A Public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-ssh-keys#ssh-keys).
+2. A resource group called `wordpress-demo` as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
+3. User permissions and the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-managing-user-permissions-for-vpc-resources)
 
-### Deploy VPC Infrastructure using Terraform
+### Deploy VPC Infrastructure using Terraform & Ansible
 
-A comprehensive Terraform plan has been created to provision and configure the neccessary infrastructure to support the n-tiered application.
-
-[Deploy Infrastructure using Terraform](docs/terraform.md)
-
-### Establish site-to-site VPN
-
-Deploy the application once the VPC infrastructure has been deployed.
-
-### Configure Application Layer
-
-[Configure Application Layer using Ansible](docs/WebApp.md)
+1. [Deploy Infrastructure using Terraform](docs/terraform.md)
+2. [Establish site-to-site VPN]()
+3. [Configure Application Layer using Ansible](docs/WebApp.md)
 
 ## Error Scenarios
 
 Application layer failures are included during the deployment and test of the software stack. No infrastructure failures were introduced.
 
-## Documentation Provided
+## Additional Documentation Provided
 
 Useful links for Terraform and Ansible
 
