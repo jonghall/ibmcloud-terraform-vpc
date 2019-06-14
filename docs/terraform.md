@@ -34,7 +34,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     export SL_USERNAME="SoftLayer username associated with SL_API_KEY".
     ```
 
-6. Rename [variables-sample.tf](variables-sample.tf) to variables.tf and modify the following variables:
+6. Rename [variables-sample.tf](../variables-sample.tf) to variables.tf and modify the following variables:
     - Change `vpc-name` to the desired VPC name.  This must be unique within your account
     - Change `resource_group` to an existing resource_group in your account
     - Change `cis_resource_group` to the resource group that your CIS instance is in
@@ -84,4 +84,4 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     ```shell
     terraform apply
     ```
-   
+10. Once the Terraform plan has completed building the Infrastructure proceed to [Establish site-to-site VPN](docs/vpn.md)
