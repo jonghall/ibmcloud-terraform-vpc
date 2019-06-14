@@ -1,0 +1,32 @@
+---
+# Basic Setup of MySQL
+- name: Change mysqld.cnf to listen on all interfaces
+  shell: |
+    sed -i "s/^\(bind-address\s*=\s*\).*\$/\10.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf
+  become: yes
+
+- name: Create wordpress database on the server
+  mysql_db:
+    name: wordpress
+    login_user: root
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    state: present
+
+- name: Create wordpress user
+  mysql_user:
+    login_user: root
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    name: wpuser
+    password: "{{ dbpassword }}"
+    priv: 'wordpress.*:ALL,GRANT'
+    host: '%'
+    state: present
+
+- name: Add logDNA tag
+  shell: logdna-agent -t role:database
+  become: yes
+
+- name: Install & Configure sysdig on DB server
+  shell: |
+      curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- --access_key {{ sysdig_key }}  -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:database,location:{{ zone }}
+  become: yes

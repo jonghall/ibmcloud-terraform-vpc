@@ -1,0 +1,8 @@
+---
+# Install & Configure mySQL for wordpress
+
+- include: create-wordpress-db.yaml
+- include: configure-replication-master.yaml
+  when: zone == "us-south-1"
+- include: configure-replication-slave.yaml
+  when: zone == "us-south-2"
