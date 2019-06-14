@@ -2,11 +2,10 @@
 
 ## Purpose
 
-The purpose of this project is to demonstrate through the use of a re-useable asset the concept of [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code)
-and the automation that enables consistent deployment of a workload into a Cloud VPC, using the IBM Cloud, Terraform, and Ansible to deploy a typical cloud workload based on
-a [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) web application architecture. 
+The purpose of this project is to demonstrate, through the use of a re-useable asset, the concept of [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code)
+and how the ability to automate deployment enables more consistent and faster deployment of workloads into a Cloud VPC, using the IBM Cloud, Terraform, and Ansible to deploy a typical cloud workload.
   
-A 3-tier architecture separates the web / application and data tiers by placing them into separate sub-networks which are logically isolated using virtual network security constructs
+A [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture separates the web / application and data tiers by placing them into separate sub-networks which are logically isolated using virtual network security constructs
 which can be defined and configured via an API.
 
 This document explains how the automated deployment of [WordPress](https://wordpress.com) on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) running in the
