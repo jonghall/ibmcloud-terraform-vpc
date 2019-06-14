@@ -53,17 +53,17 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
 
 8. (optional) Review and change the following Terraform files as needed.
 
-    - [main.tf](main.tf) defines  the VPC and network constructs such as address-blocks, subnets, and Gateways 
-    - [network-acls.tf](network-acls.tf) defines the ACLS assigned to the subnets
-    - [securitygroups.tf](securitygroups.tf) defines the security groups for the webapptier and dbtier.
-    - [compute.tf](compute.tf) provisions the webapptier and dbtier virtual servers
-    - [cloud-init-dbtier.tf](cloud-init-dbtier.tf) defines the cloud-init configuration for the dbtier servers
-    - [cloud-init-webapptier.tf](cloud-init-webapptier.tf) defines the cloud-init configuration for the webapptier servers
-    - [lbaas.tf](lbaas.tf) defines the Load Balancers, Listeners, and Pools of servers for the web application
-    - [cis.tf](cis.tf) defines the Global Load Balancer, Listeners, and Pools and registers the URL
-    - [vpn.tf](vpn.tf) defines the VPN connections from on-prem to the VPC
-    - [provider.tf](provider.tf) defines the provider required variables
-    - [output.tf](output.tf) defines what information is displayed upon completion
+    - [main.tf](../main.tf) defines  the VPC and network constructs such as address-blocks, subnets, and Gateways 
+    - [network-acls.tf](../network-acls.tf) defines the ACLS assigned to the subnets
+    - [securitygroups.tf](../securitygroups.tf) defines the security groups for the webapptier and dbtier.
+    - [compute.tf](../compute.tf) provisions the webapptier and dbtier virtual servers
+    - [cloud-init-dbtier.tf](../cloud-init-dbtier.tf) defines the cloud-init configuration for the dbtier servers
+    - [cloud-init-webapptier.tf](../cloud-init-webapptier.tf) defines the cloud-init configuration for the webapptier servers
+    - [lbaas.tf](../lbaas.tf) defines the Load Balancers, Listeners, and Pools of servers for the web application
+    - [cis.tf](../cis.tf) defines the Global Load Balancer, Listeners, and Pools and registers the URL
+    - [vpn.tf](../vpn.tf) defines the VPN connections from on-prem to the VPC
+    - [provider.tf](../provider.tf) defines the provider required variables
+    - [output.tf](../output.tf) defines what information is displayed upon completion
     
 9. Issue the following Terraform commands to execute the plan
 
