@@ -36,13 +36,13 @@ High Level Architecture
 ## VPC Architecture
 Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through a Load Balancer) and data.
 
-###Infrastructure Architecture
-![3tier Web App - Infrastructure](docs/images/3TWebAppDrawio.png)
+### Infrastructure Architecture
+![3tier Web App - Infrastructure](/docs/images/3TWebAppDrawio.png)
 
-###Application Architecture
+### Application Architecture
 ![3tuer Web App - Application](docs/images/3TWebAppDataFlowDrawio.png)
 
-Not shown
+#### *Not depicted in drawings*
 - VPNaaS or any VPN Connections
 - Cloud Internet Services (GLB function or DNS)
 - Management Flows
@@ -52,8 +52,8 @@ Not shown
 - This documentation is meant to be used for illustrative and learning purposes primarily. 
 - This document expects the reader to have a basic level of understanding of network infrastructure, Terraform, Ansible and application deployment on a Linux environment.
 - The solution will implement HTTP only for simplicity.
-- [MySQL](https://www.mysql.com/) database server was implemented on Infrastructure versus as-a-service in order to illustrate both the ability to define logical tiers within a VPC as well
-to illustrate the ability to automate deployment and configuration tasks.
+- A MySQL database server was implemented on Infrastructure versus as-a-service to illustrate both the ability to define logical tiers between subnets as well
+as to show the ability to automate deployment and configuration tasks.
 - Cloud-init is used for post-provisioning installation of required packages.  Bring-Your-Own-Image (BYOI) was not supported at the time of this writing.
 - Ansible is used for all post configuration tasks.
 
