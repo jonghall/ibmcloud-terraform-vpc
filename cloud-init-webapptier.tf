@@ -18,6 +18,7 @@ packages:
 - ntp
 - htop
 - git
+- unzip
 - supervisor
 - python-pip
 - python3-pip
@@ -36,13 +37,10 @@ packages:
 - php7.0-gd
 
 runcmd:
- - echo "deb https://repo.logdna.com stable main" | sudo tee /etc/apt/sources.list.d/logdna.list
- - wget -O- https://repo.logdna.com/logdna.gpg | sudo apt-key add -
  - echo "deb https://packages.nginx.org/unit/ubuntu/ xenial unit" | sudo tee /etc/apt/sources.list.d/unit.list
  - echo "deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit" | sudo tee -a /etc/apt/sources.list.d/unit.list
  - wget -O- https://nginx.org/keys/nginx_signing.key | sudo apt-key add -
  - sudo apt-get update
- - sudo apt-get install logdna-agent < "/dev/null"
  - mkdir /var/www
  - cd /var/www
  - sudo wget http://wordpress.org/latest.tar.gz
@@ -59,17 +57,9 @@ runcmd:
  - sudo service unit restart
  - sudo curl -X PUT --data-binary @/usr/share/doc/unit-php/examples/unit.config --unix-socket /run/control.unit.sock http://localhost/config
  - cd /etc/nginx/conf.d
- - sudo mv default.conf default.conf.bak
  - sudo systemctl enable unit
  - sudo systemctl enable nginx
  - sudo ngninx -s reload
- - sudo logdna-agent -k logdnakey
- - sudo logdna-agent -s LOGDNA_APIHOST=api.us-south.logging.cloud.ibm.com
- - sudo logdna-agent -s LOGDNA_LOGHOST=logs.us-south.logging.cloud.ibm.com
- - sudo logdna-agent -t webapp-demo
- - sudo update-rc.d logdna-agent defaults
- - sudo /etc/init.d/logdna-agent start
- - '\curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- -a sysdig_account -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:webapp'
  - reboot
  EOF
   }

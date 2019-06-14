@@ -5,7 +5,7 @@
 resource "ibm_is_lb" "webapptier-lb" {
   name = "${var.vpc-name}-webapptier01-lb"
 
-  #  resource_group = "${data.ibm_resource_group.group.id}"
+  #resource_group = "${data.ibm_resource_group.group.name}"
   subnets = ["${ibm_is_subnet.webapptier-subnet-zone1.id}", "${ibm_is_subnet.webapptier-subnet-zone2.id}"]
 }
 
@@ -29,7 +29,7 @@ resource "ibm_is_lb_pool" "webapptier-lb-pool" {
 }
 
 #---------------------------------------------------------
-# Add webservers from zone 1 and zone 2 to pool
+# Add web from zone 1 and zone 2 to pool
 #---------------------------------------------------------
 resource "ibm_is_lb_pool_member" "webapptier-lb-pool-member-zone1" {
   count          = "${ibm_is_instance.webappserver-zone1.count}"

@@ -7,11 +7,11 @@
 ## DEFINE VPC
 #---------------------------------------------------------
 variable "vpc-name" {
-  default = "tfdemo"
+  default = "vpc-name-here"
 }
 
 variable "resource_group" {
-  default = "vpc_sandbox"
+  default = "resource-name-goes-here"
 }
 
 variable "cis_resource_group" {
@@ -75,15 +75,15 @@ variable "vpn-subnet-zone-2" {
 ## DEFINE DNS
 #---------------------------------------------------------
 variable "domain" {
-  default = "hallusa.com"
+  default = "mydomain.com"
 }
 
 variable "cis_instance_name" {
-  default = "hallusa.com"
+  default = "mydomain.com"
 }
 
 variable "dns_name" {
-  default = "wordpress."
+  default = "www."
 }
 
 #---------------------------------------------------------
@@ -156,5 +156,5 @@ variable "onprem_cidr" {
 }
 
 variable "vpn-preshared-key" {
-  default = "beacon1026"
+  default = "pre$haredkey"
 }
