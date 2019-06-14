@@ -37,7 +37,8 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
 6. Rename [variables-sample.tf](../variables-sample.tf) to variables.tf and modify the following variables:
     - Change `vpc-name` to the desired VPC name.  This must be unique within your account
     - Change `resource_group` to an existing resource_group in your account
-    - Change `cis_resource_group` to the resource group that your CIS instance is in
+    - Change `cis_resource_group` to the resource group that your CIS instance exists in
+    - Change `address-pregix-vpc` to the desired CIDR block for the VPC.  Though technically not requires to be on contiguous block this simplifies the network-acls and VPN setup
     - Change `address-prefix-1` and `address-prefix-2` to the desired CIDR blocks for each availability zone
     - Change `webapptier`, `dbtier`, and `VPN` subnet CIDR blocks for Zone 1 and Zone 2.  These must be from within Zone 1 and Zone 2 address-prefix blocks
     - Change `domain` and `dns_name` to the application URL which will be registered with the Global Load Balancer
