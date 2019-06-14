@@ -9,20 +9,17 @@ and how it can enable the ability to automate deployment facilitating a more con
 A [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture was chosen as a typical cloud workload.   A 3-tier architecture separates the web / application and data tiers
 by placing them into separate sub-networks which are logically isolated using virtual network security constructs which can be defined and configured via an API.   [WordPress](https://wordpress.com),
 a popular web, blog and e-commerce platform and [MySQL](https://www.mysql.com/), a typical open source database, installed on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) were chosen
-as the core software stack because to their simplicity and broad acceptance.
+as the core software stack because to their simplicity and broad acceptance.  [Nginx](https://www.nginx.com/) and [Nginx Unit](https://www.nginx.com/products/nginx-unit/) were chosen as the Web Server
+and Application Servers respectively.
 
 The main objectives of this project is to educate enterprise DevOps users and system administrators on how to leverage both the features of [IBM Cloud VPC Infrastructure](https://cloud.ibm.com/vpc) 
-as well as how to use the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm) and Ansible.
-to deploy and fully configure a working 3-tier application.
+as well as how to use the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm) and Ansible to deploy and fully configure a working 3-tier application.
 
 This automated approach leveraged previous [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app) documentation.
 
-Features:
-1. Application
-  - A horizontally scaleable web application across two different availability zones using Wordpress
-  - Multiple separate mysql database servers across two availability zones using HyperDB
-  - A master/slave data replication across availability zones using MySQL
-2. Infrastructure
+High Level Architecture
+
+1. Infrastructure
   - Public isolation using a VPC
   - RFC1918 private bring-your-own-IP addresses
   - Application and data layers deployed on isolated on separate subnets accross different availability zones
@@ -30,6 +27,11 @@ Features:
   - Global DDOS and Global Load Balancing 
   - VPN-as-a-Service to establish remote secure connectivity between on-pream and the VPC
   - SysDig & LogDNA for infrastructure and application monitoring
+
+2. Application
+  - A horizontally scaleable web application across two different availability zones
+  - Multiple separate database servers across two availability zones
+  - A master/slave data replication strategy across availability zones
 
 Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through a Load Balancer) and data.
 
@@ -42,10 +44,11 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 - This documentation is meant to be used for illustrative and learning purposes primarily. 
 - This document expects the reader to have a basic level of understanding of network infrastructure, Terraform, Ansible and application deployment on a Linux environment.
 - The solution will implement HTTP only for simplicity.
-- The LAMP stack will use [Nginx](https://www.nginx.com/) Web Server,  [Nginx Unit](https://www.nginx.com/products/nginx-unit/) App server and [MySQL](https://www.mysql.com/) database server.
-- Cloud-init is used for post-provisioning installation of required packages.  Bring-Your-Own-Image (BYOI) is not supported at the time of this writing.
+- [MySQL](https://www.mysql.com/) database server was implemented on Infrastructure versus as-a-service in order to illustrate both the ability to define logical tiers within a VPC as well
+to illustrate the ability to automate deployment and configuration tasks.
+- Cloud-init is used for post-provisioning installation of required packages.  Bring-Your-Own-Image (BYOI) was not supported at the time of this writing.
 - Ansible is used for all post configuration tasks.
-- The Wordpress Site is not configured or content implemented
+
 
 
 ## VPC Functional Coverage
