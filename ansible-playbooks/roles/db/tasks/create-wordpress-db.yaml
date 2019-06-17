@@ -26,6 +26,10 @@
   shell: logdna-agent -t role:database
   become: yes
 
+- name: restart LogDNA
+  shell: service logdna-agent restart
+  become: yes
+
 - name: Install & Configure sysdig on DB server
   shell: |
       curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- --access_key {{ sysdig_key }}  -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:database,location:{{ zone }}
