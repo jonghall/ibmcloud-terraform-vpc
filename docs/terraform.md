@@ -2,7 +2,7 @@
 A typical use case for a Virtual Private Cloud (VPC) is the ability to logically isolate an application running on the public cloud from other applications and environments.  Additionally many
 application architectures require different tiers to isolate and secure critical aspects of the application.   An application may also need to leverage different availability zones
 to increase the overall resilience of the application.   However, building these required constructs for the network and security across VPC's, Availability Zones, and the individual network subnets
-can be tedious to implement manually.   Additionally today's development cycles often requires quick turn around and frequent updates driving the need for automation.
+can be tedious to implement manually.   Additionally today's development cycles often require quick turn around and frequent updates driving the need for automation.
 
 [HashiCorp's Terraform](https://www.terraform.io/) makes defining your cloud infrastructure in code possible.   Using the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm)
 simplifies the provisioning and management of infrastructure in the IBM Cloud using Terraform by automating and saving the state of VPCs, security-groups, network acls, subnets, compute resources,
