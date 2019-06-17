@@ -102,4 +102,4 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     ```
     
     
-10. Once the Terraform plan has completed building the Infrastructure proceed to [Establish site-to-site VPN](docs/vpn.md)
+10. Once the Terraform plan has completed building the Infrastructure proceed to [Establish site-to-site VPN](vpn.md)
