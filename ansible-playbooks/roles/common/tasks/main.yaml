@@ -17,7 +17,5 @@
   become: yes
 
 - name: Set LogDNA to autostart
-  service:
-    name: logdna-agent
-    state: started
-    enabled: yes
+  shell: systemctl enable logdna-agent
+  become: yes
