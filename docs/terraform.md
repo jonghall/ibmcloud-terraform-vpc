@@ -14,7 +14,7 @@ This provider can be found at: [https://github.com/IBM-Cloud/terraform-provider-
 
 Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/)
 
-## Steps to configure Terraform Plan
+## Steps to modify sample Terraform Plan
 
 1. [Download and install Terraform for your system](https://www.terraform.io/intro/getting-started/install.html). 
 
@@ -26,12 +26,23 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     - Linux/Unix/OS X: `~/.terraform.d/plugins`
     - Windows: `%APPDATA%\terraform.d\plugins`
 
-5. Export API credential tokens as environment variables. This can either be [IBM Cloud API keys](https://cloud.ibm.com/iam#/users) or Softlayer API keys and usernames, depending on the resources you are provisioning.
+5. Create `terraform.tfvars` file in the terraform directory which contains the following information about your account.
 
     ```sh
-    export IC_API_KEY="IBM Cloud API Key"
-    export SL_API_KEY="SoftLayer API Key"
-    export SL_USERNAME="SoftLayer username associated with SL_API_KEY".
+    # Enter your IBM IaaS Infrastructure full username, you can get this using: https://control.bluemix.net/account/user/profile
+    iaas_username = "username"
+    
+    # Enter your IBM IaaS Infrastructure API key, you can get this using: https://control.bluemix.net/account/user/profile
+    ibmcloud_iaas_api_key = "ibmcloud iaas apikey"
+    
+    # Enter your IBM Cloud API Key, you can get your IBM Cloud API key using:
+    ibmcloud_api_key = "ibmcloud apikey"
+    
+    # Enter your IBM Cloud org name, you can get your org name under your IBM Cloud dashboard account: https://console.bluemix.net/dashboard
+    org_name = "org name"
+    
+    # Enter your IBM Cloud space name, you can get your space name under your IBM Cloud dashboard account: https://console.bluemix.net/dashboard
+    space_name = "space name"
     ```
 
 6. Rename [variables-sample.tf](../variables-sample.tf) to variables.tf and modify the following variables:
@@ -50,7 +61,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     - change `onprem_cidr` CIDR block of your onprem network
     - change `vpn-preshared-key` to the desired pre-shared-key witch will be used for the VPN connection to your VPC
 
-7. (optional) Taylor profiles, images, etc as needed in `variables.tf`
+7. (optional) Tailor profiles, images, etc as needed in `variables.tf`
 
 8. (optional) Review and change the following Terraform files as needed.
 
@@ -68,9 +79,12 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     
 9. Issue the following Terraform commands to execute the plan
 
-    - To initialize Terraform and the IBM Cloud provider in the current directory
+    - To initialize Terraform and the IBM Cloud provider in the current directory.  You must also set environment variables for
+    the desired region you wish to provision the VPC in.
     
     ```shell
+    export IC_REGION="us-south"
+    export IC_GENERATION="1"
     terraform init
     ```
     
@@ -81,8 +95,11 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     ```
     
     - To execute and start building the configuration defined in the plan (provisions resources)
+    - When provisioning is complete, make note of the IP address of the Master_DB and Slave_DB as these will be needed in the next steps. 
     
     ```shell
     terraform apply
     ```
+    
+    
 10. Once the Terraform plan has completed building the Infrastructure proceed to [Establish site-to-site VPN](docs/vpn.md)
