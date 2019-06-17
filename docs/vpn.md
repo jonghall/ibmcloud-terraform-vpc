@@ -42,5 +42,4 @@ which were created as part of the Terraform Plan exeuction.   You only need to c
 - [Creating a secure connection with a remote Cisco ASAv peer](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-cisco-asav-peer)
 - [Creating a secure connection with a remote FortiGate peer](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-fortigate-peer)
 - [Creating a secure connection with a remote StrongSwan peer](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-strongswan-peer)
-- [Creating a secure connection with a remote Vyatta peer](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-vyatta-peer
-)
+- [Creating a secure connection with a remote Vyatta peer](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-creating-a-secure-connection-with-a-remote-vyatta-peer)

@@ -14,8 +14,10 @@
      logdna-agent -k {{ logdna_key }}
      logdna-agent -s LOGDNA_APIHOST=api.us-south.logging.cloud.ibm.com
      logdna-agent -s LOGDNA_LOGHOST=logs.us-south.logging.cloud.ibm.com
-     update-rc.d logdna-agent defaults
-     /etc/init.d/logdna-agent start
   become: yes
 
-
+- name: Set LogDNA to autostart
+  service:
+    name: logdna-agent
+    state: started
+    enabled: yes
