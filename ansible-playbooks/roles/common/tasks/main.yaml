@@ -1,0 +1,21 @@
+---
+# Common stuff goes here
+
+- name: Add LogDNA repo and install
+  shell: |
+    echo "deb https://repo.logdna.com stable main" | sudo tee /etc/apt/sources.list.d/logdna.list
+    wget -O- https://repo.logdna.com/logdna.gpg | sudo apt-key add -
+    apt-get update
+    apt-get install logdna-agent < "/dev/null"
+  become: yes
+
+- name: Configure LogDNA
+  shell: |
+     logdna-agent -k {{ logdna_key }}
+     logdna-agent -s LOGDNA_APIHOST=api.us-south.logging.cloud.ibm.com
+     logdna-agent -s LOGDNA_LOGHOST=logs.us-south.logging.cloud.ibm.com
+  become: yes
+
+- name: Set LogDNA to autostart
+  shell: systemctl enable logdna-agent
+  become: yes

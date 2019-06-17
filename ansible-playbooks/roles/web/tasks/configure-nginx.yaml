@@ -1,0 +1,25 @@
+---
+# Configure nginx stuff
+
+- name: Copy nginx default.conf to server
+  copy:
+    src: default.conf
+    dest: /etc/nginx/conf.d
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add ip as nginx server_name to default.conf
+  lineinfile:
+    dest: /etc/nginx/conf.d/default.conf
+    regexp: '^(.*)server_name localhost 127.0.0.1;(.*)$'
+    line:     server_name localhost wordpress.hallusa.com {{ ansible_host }};
+    backrefs: yes
+
+- name: update nginx with wordpress config
+  shell: curl -X PUT --data-binary @/var/www/wordpress/wordpress.config --unix-socket /run/control.unit.sock http://localhost/config
+
+- name: Restart nginx server
+  shell: service nginx restart
+
+

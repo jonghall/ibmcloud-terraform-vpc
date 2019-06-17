@@ -1,0 +1,65 @@
+---
+# Configure wordpress stuff
+
+- name: Copy wp-config.php to server
+  copy:
+    src: wp-config.php
+    dest: /var/www/wordpress/wp-config.php
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Copy wordpress.config to server
+  copy:
+    src: wordpress.config
+    dest: /var/www/wordpress/wordpress.config
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy db-config
+  copy:
+    src: db-config.php
+    dest: /var/www/wordpress/db-config.php
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Copy db-php
+  copy:
+    src: db.php
+    dest: /var/www/wordpress/wp-content/
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Modify wp-config for master db
+  lineinfile:
+    dest: /var/www/wordpress/wp-config.php
+    regexp: ^(.*)define\( 'DB_HOST', '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b'\);(.*)$
+    line: "define( 'DB_HOST', '{{ master_db }}');"
+
+- name: Add slave_db_host to wp-config
+  lineinfile:
+    dest: /var/www/wordpress/wp-config.php
+    regexp:  ^(.*)define\( 'SLAVE_DB_HOST', '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b'\);(.*)$
+    line: "define( 'SLAVE_DB_HOST', '{{ slave_db }}');"
+
+- name: Set database password in wp-config
+  lineinfile:
+    dest: /var/www/wordpress/wp-config.php
+    regex: ^(.*)define\( 'DB_PASSWORD', 'dbpassword' \);(.*)$
+    line: "define( 'DB_PASSWORD', '{{ dbpassword }}' );"
+
+- name: Add LogDNA tag for webapp
+  shell: logdna-agent -t role:webapp
+  become: yes
+
+- name: restart LogDNA
+  shell: service logdna-agent restart
+  become: yes
+
+- name: Install & Configure sysdig on Webapp server
+  shell: |
+      curl -sL https://ibm.biz/install-sysdig-agent | sudo bash -s -- --access_key {{ sysdig_key }}  -c ingest.us-south.monitoring.cloud.ibm.com --collector_port 6443 --secure true -ac "sysdig_capture_enabled: false" --tags role:webapp,location:{{ zone }}
+  become: yes

@@ -7,11 +7,11 @@
 ## DEFINE VPC
 #---------------------------------------------------------
 variable "vpc-name" {
-  default = "wp-demo"
+  default = "vpc-name-here"
 }
 
 variable "resource_group" {
-  default = "vpc_sandbox"
+  default = "resource-name-goes-here"
 }
 
 variable "cis_resource_group" {
@@ -32,6 +32,10 @@ variable "zone2" {
 #---------------------------------------------------------
 ## DEFINE CIDR Blocks to be used in each zone
 #---------------------------------------------------------
+variable "address-prefix-vpc" {
+  default = "172.21.0.0/20"
+}
+
 variable "address-prefix-1" {
   default = "172.21.0.0/21"
 }
@@ -75,22 +79,22 @@ variable "vpn-subnet-zone-2" {
 ## DEFINE DNS
 #---------------------------------------------------------
 variable "domain" {
-  default = "hallusa.com"
+  default = "mydomain.com"
 }
 
 variable "cis_instance_name" {
-  default = "hallusa.com"
+  default = "mydomain.com"
 }
 
 variable "dns_name" {
-  default = "wordpress."
+  default = "www."
 }
 
 #---------------------------------------------------------
 ## DEFINE sshkey to be used for compute instances
 #---------------------------------------------------------
 variable "ssh_public_key" {
-  default = "example_rsa.pub"
+  default = "~/.ssh/id_rsa.pub"
 }
 
 #---------------------------------------------------------
@@ -152,9 +156,9 @@ variable "onprem_vpn_ip_address" {
 }
 
 variable "onprem_cidr" {
-  default = "172.16.0.0/24"
+  default = "192.168.248.0/24"
 }
 
 variable "vpn-preshared-key" {
-  default = "vpnpassword"
+  default = "pre$haredkey"
 }

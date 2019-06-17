@@ -2,7 +2,7 @@
 # Create sshkey from file
 #---------------------------------------------------------
 resource "ibm_is_ssh_key" "sshkey" {
-  name       = "example"
+  name       = "wordpress-demo"
   public_key = "${file(var.ssh_public_key)}"
 }
 
@@ -16,7 +16,6 @@ resource "ibm_is_instance" "webappserver-zone1" {
   profile = "${var.profile-webappserver}"
 
   primary_network_interface = {
-    port_speed      = "1000"
     subnet          = "${ibm_is_subnet.webapptier-subnet-zone1.id}"
     security_groups = ["${ibm_is_security_group.webapptier-securitygroup.id}"]
   }
@@ -34,7 +33,6 @@ resource "ibm_is_instance" "dbserver-zone1" {
   profile = "${var.profile-dbserver}"
 
   primary_network_interface = {
-    port_speed      = "1000"
     subnet          = "${ibm_is_subnet.dbtier-subnet-zone1.id}"
     security_groups = ["${ibm_is_security_group.dbtier-securitygroup.id}"]
   }
@@ -55,7 +53,6 @@ resource "ibm_is_instance" "webappserver-zone2" {
   profile = "${var.profile-webappserver}"
 
   primary_network_interface = {
-    port_speed      = "1000"
     subnet          = "${ibm_is_subnet.webapptier-subnet-zone2.id}"
     security_groups = ["${ibm_is_security_group.webapptier-securitygroup.id}"]
   }
@@ -73,7 +70,6 @@ resource "ibm_is_instance" "dbserver-zone2" {
   profile = "${var.profile-dbserver}"
 
   primary_network_interface = {
-    port_speed      = "1000"
     subnet          = "${ibm_is_subnet.dbtier-subnet-zone2.id}"
     security_groups = ["${ibm_is_security_group.dbtier-securitygroup.id}"]
   }
