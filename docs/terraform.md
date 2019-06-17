@@ -45,7 +45,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     space_name = "space name"
     ```
 
-6. Rename [variables-sample.tf](../variables-sample.tf) to variables.tf and modify the following variables:
+6. Rename [variables.tf.sample](../variables.tf.sample) to variables.tf and modify the following variables:
     - Change `vpc-name` to the desired VPC name.  This must be unique within your account
     - Change `resource_group` to an existing resource_group in your account
     - Change `cis_resource_group` to the resource group that your CIS instance exists in
@@ -75,7 +75,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     - [cis.tf](../cis.tf) defines the Global Load Balancer, Listeners, and Pools and registers the URL
     - [vpn.tf](../vpn.tf) defines the VPN connections from on-prem to the VPC
     - [provider.tf](../provider.tf) defines the provider required variables
-    - [output.tf](../output.tf) defines what information is displayed upon completion
+    - [output.tf](../output.tf) defines what information is displayed upon completion of plan
     
 9. Issue the following Terraform commands to execute the plan
 
