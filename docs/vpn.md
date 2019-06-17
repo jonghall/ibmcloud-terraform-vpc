@@ -34,7 +34,7 @@ which were created as part of the Terraform Plan exeuction.   You only need to c
 4. Save configuration
 5. Start VPN connections
 6. Test connectivity to the VPC
-6. Once connectivity is established proceed to [Configuring the Application Layer using Ansible](docs/ansible.md)
+6. Once connectivity is established proceed to [Configuring the Application Layer using Ansible](ansible.md)
 
 
 ## Documentation for different VPN concentrators
