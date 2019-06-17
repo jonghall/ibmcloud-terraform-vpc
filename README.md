@@ -111,7 +111,7 @@ as to show the ability to automate deployment and configuration tasks.
 
 The following software needs to be installed:
 1. Terraform 0.11 or greater
-2. [IBM Cloud Terraform Provider version 0.17.0](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/) 
+2. [IBM Cloud Terraform Provider version 0.17.1](https://github.com/IBM-Cloud/terraform-provider-ibm) 
 2. Ansible 2.8
 
 The following must be configured prior to running Terraform / Ansible
@@ -132,7 +132,7 @@ Useful links for Terraform and Ansible
 
 [Terraform Documentation](https://www.terraform.io/docs/index.html)
 
-[The IBM Cloud Provider for Terraform Documentation](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.0/)
+[The IBM Cloud Provider for Terraform Documentation](https://ibm-cloud.github.io/tf-ibm-docs/v0.17.1/)
 
 [Ansible Documentation](https://docs.ansible.com/ansible/latest/index.html)
 
