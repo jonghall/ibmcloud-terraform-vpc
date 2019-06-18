@@ -59,14 +59,82 @@ been dynamically created from the inventory script.
           webapp01-us-south-2
     
       play #3 (dbtier): Configure Mysql Servers in dbtier   TAGS: []
-        pattern: ['dbtier-']
+        pattern: ['dbtier']
         hosts (2):
           mysql01-us-south-2
           mysql01-us-south-1
      ```
 
+5.  The Ansible playbook is divided into three plays: `common`, `web` and `db`.   The `common` play will be applied to all VSIs.  The web
+web play will be applied to all VSIs in the `webapptier` security group, and the DB play will be applied to all the hosts in the `dbtier`
+security group.  To verify the tasks which will be applied in each play execute the following command.
+
+    ```shell
+    ansible-playbook -i inventory site.yaml --list-tasks
+    ```
     
-9. Verify that the post provisioning processes are complete, connectivity is established over the VPN and the servers are
+    Output:
+    ```shell
+
+      playbook: site.yaml
+
+      play #1 (all): Apply common configuration to all nodes in inventory   TAGS: []
+        tasks:
+          common : Add LogDNA repo and install      TAGS: []
+          common : Configure LogDNA TAGS: []
+          common : Set LogDNA to autostart  TAGS: []
+    
+      play #2 (webapptier): Configure and deploy the web and application code to webapptier TAGS: []
+        tasks:
+          web : Create Wordpress Directory  TAGS: []
+          web : Download and untar Wordpress distro TAGS: []
+          web : Copy wp-config.php to server        TAGS: []
+          web : Copy wordpress.config to server     TAGS: []
+          web : Copy db-config      TAGS: []
+          web : Copy db-php TAGS: []
+          web : Modify wp-config for master db      TAGS: []
+          web : Add slave_db_host to wp-config      TAGS: []
+          web : Set database password in wp-config  TAGS: []
+          web : Set wordpress file permissions      TAGS: []
+          web : Add LogDNA tag for webapp   TAGS: []
+          web : restart LogDNA      TAGS: []
+          web : Install & Configure sysdig on Webapp server TAGS: []
+          web : Update Nginx Unit Config    TAGS: []
+          web : Configure NGINX and NGINX Unit to auto start and reload     TAGS: []
+          web : Copy nginx default.conf to server   TAGS: []
+          web : Add ip as nginx server_name to default.conf TAGS: []
+          web : update nginx with wordpress config  TAGS: []
+          web : Restart nginx server        TAGS: []
+    
+      play #3 (dbtier): Configure Mysql Servers in dbtier   TAGS: []
+        tasks:
+          db : Change mysqld.cnf to listen on all interfaces        TAGS: []
+          db : Create wordpress database on the server      TAGS: []
+          db : Create wordpress user        TAGS: []
+          db : Add logDNA tag       TAGS: []
+          db : restart LogDNA       TAGS: []
+          db : Install & Configure sysdig on DB server      TAGS: []
+          db : Add replication settings to server-id my.cnf for master      TAGS: []
+          db : Add replication settings to log_bin my.cnf for master        TAGS: []
+          db : Add replication settings to binlog_do_db my.cnf for master   TAGS: []
+          db : Add sql_mode TAGS: []
+          db : Create slave user    TAGS: []
+          db : restart mysql        TAGS: []
+          db : Add replication settings to server-id my.cnf for slave       TAGS: []
+          db : Add replication settings to relay-log my.cnf for master      TAGS: []
+          db : Add replication settings to log_bin my.cnf for master        TAGS: []
+          db : Add replication settings to binlog_do_db my.cnf for master   TAGS: []
+          db : Add sql_mode TAGS: []
+          db : restart mysql        TAGS: []
+          db : Create slave user    TAGS: []
+          db : Stop Slave   TAGS: []
+          db : Configure Slave Replication  TAGS: []
+          db : Start Slave  TAGS: []
+
+    ```
+
+    
+6. Before executing the plays, verify that the post provisioning processes are complete, connectivity is established over the VPN and the servers are
 ready to be configured by SSHing into each server and issuing the following command.
     
     ```shell
@@ -101,15 +169,14 @@ ready to be configured by SSHing into each server and issuing the following comm
     
     ```
 
-10. The Ansible playbook is divided into three roles: `common`, `web` and `db`.   The `common` role will be applied to all VSIs.  The web
-role will be applied to all VSIs in the `webapptier` security group, and the DB role will be applied to all the hosts in the `dbtier`
-security group.  Issue the following command from the controller workstation where you installed Ansible.
+7. Now that you have verified the inventory, the plays, and that connectivity exists and the post-provisioning is complete
+issue the following command from the controller workstation where you installed Ansible.
     
     ```shell
     ansible-playbook -i inventory site.yaml
     ```
    
-11. Open a browser and enter the URL you specified in the Terraform variables.tf file.  Remember, for this example we did not configure SSL so prefix the host
+8. Once the playbook is complete, open a browser and enter the URL you specified in the Terraform variables.tf file.  Remember, for this example we did not configure SSL so prefix the host
 and domain with `http://`.   This URL was also displayed upon the completion of the Terraform play.  This URL resolves to the Cloud Internet Services (CIS) DDOS
 proxy / Global Load Balancer configured by Terraform, and is then directed to the VPC Load Balancer service which directs to the request to an available
 Web/Application server.  This step is neccessary to initialize the wordpress database and begin your customization of Wordpress which will be replicated to the
