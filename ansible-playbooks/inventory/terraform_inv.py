@@ -5,7 +5,7 @@
 #
 ti_version = '1.0'
 # Based on dynamic inventory for IBM Cloud from steve_strutt@uk.ibm.com
-# 05-16-2019 - 1.0 - Extended for use with the IBM VPC version 0.17 TF provider & expanded use of RIAS API
+# 05-16-2019 - 1.0 - Extended for use with the IBM VPC version 0.17.1 TF
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,14 +19,10 @@ ti_version = '1.0'
 #
 # Can be used alongside static inventory files in the same directory 
 #
-# This inventory script builds groups based on security group association
-# of primary interface.
-
-
+#
 # terraform_inv.ini file in the same directory as this script, points to the 
-# location of the terraform.tfstate file to be inventoried.  Additionally in the [API]
-# section endpoint and apikey information should be supplied and are required
-# to build security group based groups which are not stored in TF state file.
+# location of the terraform.tfstate file to be inventoried.  Tags and will be
+# created based on security group membership and zone.
 #
 # [TFSTATE]
 # TFSTATE_FILE = /usr/share/terraform/ibm/Demoapp2x/terraform.tfstate
@@ -129,129 +125,8 @@ def parse_dict(tf_source, prefix, sep='.'):
 def parse_list(tf_source, prefix, sep='.'):
     return [value for _, value in parse_state(tf_source, prefix, sep)]
 
-
-def parse_apiconfig():
-
-    dirpath = os.getcwd()
-    config = configparser.ConfigParser()
-    ini_file = 'terraform_inv.ini'
-    try:
-        # attempt to open ini file first. Only proceed if found
-        # assume execution from the ansible playbook directory
-        filepath = dirpath + "/inventory/" + ini_file
-        open(filepath)
-
-    except FileNotFoundError:
-        try:
-            # If file is not found it may be because command is executed
-            # in inventory directory
-            filepath = dirpath + "/" + ini_file
-            open(filepath)
-
-        except FileNotFoundError:
-            raise Exception("Unable to find or open specified ini file")
-        else:
-            config.read(filepath)
-    else:
-        config.read(filepath)
-
-    config.read(filepath)
-
-    api = {}
-    api["apikey"] = config["API"]["apikey"]
-    api["iamtoken"] = getiamtoken(config["API"]["apikey"])
-    api["rias_endpoint"] = config["API"]["rias_endpoint"]
-    api["version"] = config["API"]["version"]
-
-    return api
-
-def getiamtoken(apikey):
-    ################################################
-    ## Lookup interface by ID
-    ################################################
-
-    headers = {"Content-Type": "application/x-www-form-urlencoded",
-               "Accept": "application/json"}
-
-    parms = {"grant_type": "urn:ibm:params:oauth:grant-type:apikey", "apikey": apikey}
-
-    try:
-        resp = requests.post("https://iam.cloud.ibm.com/identity/token?"+urllib.parse.urlencode(parms), headers=headers, timeout=30)
-        resp.raise_for_status()
-    except requests.exceptions.ConnectionError as errc:
-        print("Error Connecting:", errc)
-        quit()
-    except requests.exceptions.Timeout as errt:
-        print("Timeout Error:", errt)
-        quit()
-    except requests.exceptions.HTTPError as errb:
-            print("Invalid token request.")
-            print("template=%s" % parms)
-            print("Error Data:  %s" % errb)
-            print("Other Data:  %s" % resp.text)
-            quit()
-
-
-    iam = resp.json()
-
-    iamtoken = {"Authorization": "Bearer " + iam["access_token"]}
-
-    return iamtoken
-
-
-def getinstance(api, instance_id):
-    ################################################
-    ## Lookup instance by ID
-    ################################################
-
-    try:
-        resp = requests.get(api["rias_endpoint"] + '/v1/instances/' +instance_id + api["version"],
-                            headers=api["iamtoken"], timeout=30)
-        resp.raise_for_status()
-    except requests.exceptions.ConnectionError as errc:
-        print("Error Connecting:", errc)
-        quit()
-    except requests.exceptions.Timeout as errt:
-        print("Timeout Error:", errt)
-        quit()
-    except requests.exceptions.HTTPError as errb:
-        print("Unknown Error:", errb)
-        quit()
-
-    if resp.status_code == 200:
-        instance = json.loads(resp.content)
-
-    return instance
-
-
-def getinterface(api, id, interface_id):
-    ################################################
-    ## Lookup interface by ID
-    ################################################
-
-
-    try:
-        resp = requests.get(api["rias_endpoint"] + '/v1/instances/' + id + "/network_interfaces/" + interface_id + api["version"],
-                            headers=api["iamtoken"], timeout=30)
-        resp.raise_for_status()
-    except requests.exceptions.ConnectionError as errc:
-        print("Error Connecting:", errc)
-        quit()
-    except requests.exceptions.Timeout as errt:
-        print("Timeout Error:", errt)
-        quit()
-    except requests.exceptions.HTTPError as errb:
-        print("Unknown Error:", errb)
-        quit()
-
-    if resp.status_code == 200:
-        interface = json.loads(resp.content)
-
-    return interface
-
 class TerraformInventory:
     def __init__(self):
-        self.api = parse_apiconfig()
         self.args = parse_params()
         if self.args.version:
             print(ti_version)
@@ -259,30 +134,90 @@ class TerraformInventory:
             print(self.list_all())
 
     def list_all(self):
-        #tf_hosts = []
+        tf_hosts = []
+        vars = {}
         hosts_vars = {}
         attributes = {}
         groups = {}
         groups_json = {}
         inv_output = {}
         group_hosts = defaultdict(list)
+
         for name, attributes, groups in self.get_tf_instances():
-            #tf_hosts.append(name)
+            tf_hosts.append(name)
             hosts_vars[name] = attributes
             for group in list(groups):
-                #print(group)
                 group_hosts[group].append(name)
-                #print(group_hosts.items())
+
+        inv_output["All"] = {
+            "hosts": tf_hosts,
+            "vars": self.get_tf_output()
+        }
+
+        inv_output["_meta"] = {'hostvars': hosts_vars}
 
         for group in group_hosts:
             inv_output[group] = {'hosts': group_hosts[group]}
-        inv_output["_meta"] = {'hostvars': hosts_vars} 
+
         return json.dumps(inv_output, indent=2)
+
+    def get_tf_output(self):
+        ################################################
+        ## Get Terraform Output variables
+        ################################################
+
+        tfstate = get_tfstate(self.args.tfstate)
+        vars = {}
+        for module in tfstate['modules']:
+            for key, value in module['outputs'].items():
+                vars.update({key: value["value"]})
+        return vars
+
+    def get_tf_security_group_name(self, id):
+        ################################################
+        ## Get security groups
+        ################################################
+
+        tfstate = get_tfstate(self.args.tfstate)
+        security_groups = {}
+        for module in tfstate['modules']:
+            for resource in module['resources'].values():
+                if resource['type'] == 'ibm_is_security_group' :
+                    tf_attrib = resource['primary']['attributes']
+                    if tf_attrib["id"] == id:
+                        return tf_attrib["name"]
+
+    def get_tf_vpc(self, id):
+        ################################################
+        ## Get VPC name from ID
+        ################################################
+
+        tfstate = get_tfstate(self.args.tfstate)
+        for module in tfstate['modules']:
+            for resource in module['resources'].values():
+                if resource['type'] == 'ibm_is_vpc':
+                    tf_attrib = resource['primary']['attributes']
+                    if tf_attrib["id"] == id:
+                        return tf_attrib["name"]
+
+    def get_tf_subnet_name(self, id):
+        ################################################
+        ## Get Subnet Name
+        ################################################
+
+        tfstate = get_tfstate(self.args.tfstate)
+        for module in tfstate['modules']:
+            for resource in module['resources'].values():
+                if resource['type'] == 'ibm_is_subnet':
+                    tf_attrib = resource['primary']['attributes']
+                    if tf_attrib["id"] == id:
+                        return tf_attrib["name"]
 
 
     def get_tf_instances(self):
 
         tfstate = get_tfstate(self.args.tfstate)
+
         for module in tfstate['modules']:
             for resource in module['resources'].values():
                 if resource['type'] == 'ibm_is_instance':
@@ -290,27 +225,24 @@ class TerraformInventory:
                     tf_attrib = resource['primary']['attributes']
                     id = tf_attrib['id']
 
-                    instance = getinstance(self.api, id)
-
-                    interface_id = instance["primary_network_interface"]["id"]
-
-                    interface = getinterface(self.api, id, interface_id)
-
-                    #print (json.dumps(instance,indent=4))
-                    #print (json.dumps(interface, indent=4))
-
                     name = tf_attrib['name']
-                    sgname = interface["security_groups"][0]["name"].split("-")[1]
-                    tags = "group:" + sgname
+
+                    # Get Security Group ID, and derive name
+                    security_group_id = 0
+                    for key, value in tf_attrib.items():
+                        if "primary_network_interface.0.security_groups." in key:
+                            security_group_id = value
+
+                    security_group = self.get_tf_security_group_name(security_group_id)
+
+                    # Remove VPC prefix + "securitygroup" from name and change - to _ characters
+                    tags = "group:" +security_group.split("-")[1].translate({ord(c): "_" for c in '-'})
 
                     attributes = {
                         'id': id,
-                        'interface_id': interface_id,
-                        'image': instance["image"]["name"],
-                        'subnet': instance["primary_network_interface"]["subnet"]["name"],
-                        'securitygroup': interface["security_groups"][0]["name"],
-                        'vpc': instance["vpc"]["name"],
-                        #'profile': instance["profile"]["name"],
+                        'subnet': self.get_tf_subnet_name(tf_attrib["primary_network_interface.0.subnet"]),
+                        'securitygroup': security_group,
+                        'vpc': self.get_tf_vpc(tf_attrib["vpc"]),
                         'zone': tf_attrib['zone'],
                         'ram': tf_attrib['memory'],
                         'cpu': tf_attrib['cpu.0.cores'],
@@ -338,7 +270,6 @@ class TerraformInventory:
 
                     yield name, attributes, group
 
-             
 
 
 if __name__ == '__main__':

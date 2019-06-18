@@ -1,7 +1,5 @@
-# modify these to determine master and salve mysql database
+# Update passwords and API keys
 
-master_db: 172.21.1.8
-slave_db: 172.21.9.5
 dbpassword: securepassw0rd
 logdna_key: logdna key goes here
 sysdig_key: sysdig key goes here

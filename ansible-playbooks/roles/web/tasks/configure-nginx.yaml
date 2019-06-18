@@ -1,6 +1,16 @@
 ---
 # Configure nginx stuff
 
+- name: Update Nginx Unit Config
+  shell: curl -X PUT --data-binary @/usr/share/doc/unit-php/examples/unit.config --unix-socket /run/control.unit.sock http://localhost/config
+  become: yes
+
+- name: Configure NGINX and NGINX Unit to auto start and reload
+  shell: |
+    systemctl enable unit
+    systemctl enable nginx
+  become: yes
+
 - name: Copy nginx default.conf to server
   copy:
     src: default.conf
@@ -13,11 +23,12 @@
   lineinfile:
     dest: /etc/nginx/conf.d/default.conf
     regexp: '^(.*)server_name localhost 127.0.0.1;(.*)$'
-    line:     server_name localhost wordpress.hallusa.com {{ ansible_host }};
+    line:     server_name localhost {{ app_name }} {{ ansible_host }};
     backrefs: yes
 
 - name: update nginx with wordpress config
   shell: curl -X PUT --data-binary @/var/www/wordpress/wordpress.config --unix-socket /run/control.unit.sock http://localhost/config
+  become: yes
 
 - name: Restart nginx server
   shell: service nginx restart

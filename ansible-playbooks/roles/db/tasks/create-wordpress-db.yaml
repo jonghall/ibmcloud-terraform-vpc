@@ -23,7 +23,7 @@
     state: present
 
 - name: Add logDNA tag
-  shell: logdna-agent -t role:database
+  shell: logdna-agent -t database
   become: yes
 
 - name: restart LogDNA
