@@ -34,7 +34,7 @@ location.   The state infromation will be used to build a dynamic inventory when
     ```
 
 4. Test the dynamic inventory script using the --list-hosts options.  The output should show the hosts, and groups which have
-been dynamically created from the inventory script.
+been dynamically created from the inventory script based on the Terraform state file.
 
     ```sh
     cd ansible-playbooks
@@ -66,7 +66,7 @@ been dynamically created from the inventory script.
      ```
 
 5.  The Ansible playbook is divided into three plays: `common`, `web` and `db`.   The `common` play will be applied to all VSIs.  The web
-web play will be applied to all VSIs in the `webapptier` security group, and the DB play will be applied to all the hosts in the `dbtier`
+play will be applied to only the VSIs in the `webapptier` security group, and the DB play will be applied to only the hosts in the `dbtier`
 security group.  To verify the tasks which will be applied in each play execute the following command.
 
     ```shell
@@ -134,8 +134,9 @@ security group.  To verify the tasks which will be applied in each play execute 
     ```
 
     
-6. Before executing the plays, verify that the post provisioning processes are complete, connectivity is established over the VPN and the servers are
-ready to be configured by SSHing into each server and issuing the following command.
+6. Before executing the plays, verify that the post provisioning processes which update and install the required packages are complete,
+connectivity is established over the VPN and the servers are ready to be configured by SSHing into each server and issuing the following command 
+to verify the cloud-init status is done. 
     
     ```shell
     cloud-init status    
@@ -176,7 +177,7 @@ issue the following command from the controller workstation where you installed 
     ansible-playbook -i inventory site.yaml
     ```
    
-8. Once the playbook is complete, open a browser and enter the URL you specified in the Terraform variables.tf file.  Remember, for this example we did not configure SSL so prefix the host
+8. Once the playbook is complete, open a browser and enter the URL you specified in the Terraform variables.tf file for Wordpress.  Remember, for this example we did not configure SSL so prefix the host
 and domain with `http://`.   This URL was also displayed upon the completion of the Terraform play.  This URL resolves to the Cloud Internet Services (CIS) DDOS
 proxy / Global Load Balancer configured by Terraform, and is then directed to the VPC Load Balancer service which directs to the request to an available
 Web/Application server.  This step is neccessary to initialize the wordpress database and begin your customization of Wordpress which will be replicated to the
