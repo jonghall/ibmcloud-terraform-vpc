@@ -1,5 +1,19 @@
 ---
 # Configure wordpress stuff
+- name: Create Wordpress Directory
+  file:
+    path: /var/www/
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+    recurse: yes
+
+- name: Download and untar Wordpress distro
+  unarchive:
+    src: http://wordpress.org/latest.tar.gz
+    dest: /var/www
+    remote_src: yes
 
 - name: Copy wp-config.php to server
   copy:
@@ -51,8 +65,18 @@
     regex: ^(.*)define\( 'DB_PASSWORD', 'dbpassword' \);(.*)$
     line: "define( 'DB_PASSWORD', '{{ dbpassword }}' );"
 
+- name: Set wordpress file permissions
+  shell: |
+    chown -R www-data:www-data /var/www/wordpress
+    find /var/www/wordpress -type d -exec chmod g+s {} \;
+    chown -R www-data:www-data /var/www/wordpress
+    chmod g+w /var/www/wordpress/wp-content
+    chmod -R g+w /var/www/wordpress/wp-content/themes
+    chmod -R g+w /var/www/wordpress/wp-content/plugins
+  become: yes
+
 - name: Add LogDNA tag for webapp
-  shell: logdna-agent -t role:webapp
+  shell: logdna-agent -t webapp
   become: yes
 
 - name: restart LogDNA
