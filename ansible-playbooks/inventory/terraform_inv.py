@@ -19,22 +19,13 @@ ti_version = '1.0'
 #
 # Can be used alongside static inventory files in the same directory 
 #
-#
 # terraform_inv.ini file in the same directory as this script, points to the 
 # location of the terraform.tfstate file to be inventoried.  Tags and will be
 # created based on security group membership and zone.
 #
 # [TFSTATE]
 # TFSTATE_FILE = /usr/share/terraform/ibm/Demoapp2x/terraform.tfstate
-#
-#
-# [API]
-# apikey = apikey-goes-here
-# rias_endpoint = https://us-south.iaas.cloud.ibm.com
-# resource_controller_endpoint = https://resource-controller.cloud.ibm.com
-# version = ?version=2019-01-01&generation=1
-#
-# 
+##
 # Validate correct execution: 
 #   With supplied test files - './terraform_inv.py -t ../tr_test_files/terraform.tfstate'
 #   With ini file './terraform.py'
@@ -46,11 +37,14 @@ ti_version = '1.0'
 #
 # Resources imported into Ansible
 # ibm_is_instance
+#
 # Groups created for each availability zone, and security group.
 # Security group groups extract the middle section between "-" of the security group name
 # in the format: vpcname-tier-securitygroup
+#
+# TF Output variables are extracted and stored under all vars.
 
-import json, configparser, os, requests, urllib.parse
+import json, configparser, os
 from collections import defaultdict
 from argparse import ArgumentParser
 

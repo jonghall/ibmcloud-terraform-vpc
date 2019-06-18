@@ -6,7 +6,7 @@
     path: /etc/mysql/my.cnf
     section: mysqld
     option: server-id
-    value: 1
+    value: "1"
     backup: yes
 
 - name: Add replication settings to log_bin my.cnf for master

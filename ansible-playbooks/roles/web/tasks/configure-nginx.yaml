@@ -1,14 +1,17 @@
 ---
 # Configure nginx stuff
 
-- name: Update Nginx Unit Config
-  shell: curl -X PUT --data-binary @/usr/share/doc/unit-php/examples/unit.config --unix-socket /run/control.unit.sock http://localhost/config
-  become: yes
-
 - name: Configure NGINX and NGINX Unit to auto start and reload
   shell: |
     systemctl enable unit
     systemctl enable nginx
+  become: yes
+
+- name: start unit app server
+  shell: systemctl start unit
+
+- name: Update Nginx Unit Config
+  shell: curl -X PUT --data-binary @/usr/share/doc/unit-php/examples/unit.config --unix-socket /run/control.unit.sock http://localhost/config
   become: yes
 
 - name: Copy nginx default.conf to server
