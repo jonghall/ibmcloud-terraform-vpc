@@ -95,7 +95,6 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     ```
     
     - To execute and start building the configuration defined in the plan (provisions resources)
-    - When provisioning is complete, make note of the IP address of the Master_DB and Slave_DB as these will be needed in the next steps. 
     
     ```shell
     terraform apply
