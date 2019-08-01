@@ -26,26 +26,7 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     - Linux/Unix/OS X: `~/.terraform.d/plugins`
     - Windows: `%APPDATA%\terraform.d\plugins`
 
-5. Create `terraform.tfvars` file in the terraform directory which contains the following information about your account.
-
-    ```sh
-    # Enter your IBM IaaS Infrastructure full username, you can get this using: https://control.bluemix.net/account/user/profile
-    iaas_username = "username"
-    
-    # Enter your IBM IaaS Infrastructure API key, you can get this using: https://control.bluemix.net/account/user/profile
-    ibmcloud_iaas_api_key = "ibmcloud iaas apikey"
-    
-    # Enter your IBM Cloud API Key, you can get your IBM Cloud API key using:
-    ibmcloud_api_key = "ibmcloud apikey"
-    
-    # Enter your IBM Cloud org name, you can get your org name under your IBM Cloud dashboard account: https://console.bluemix.net/dashboard
-    org_name = "org name"
-    
-    # Enter your IBM Cloud space name, you can get your space name under your IBM Cloud dashboard account: https://console.bluemix.net/dashboard
-    space_name = "space name"
-    ```
-
-6. Rename [variables.tf.sample](../variables.tf.sample) to variables.tf and modify the following variables:
+6. Modify [variables.tf](../variables.tf) for the following variables:
     - Change `vpc-name` to the desired VPC name.  This must be unique within your account
     - Change `resource_group` to an existing resource_group in your account
     - Change `cis_resource_group` to the resource group that your CIS instance exists in
@@ -79,12 +60,13 @@ Documentation for the IBM provider can be found at: [https://ibm-cloud.github.io
     
 9. Issue the following Terraform commands to execute the plan
 
-    - To initialize Terraform and the IBM Cloud provider in the current directory.  You must also set environment variables for
-    the desired region you wish to provision the VPC in.
+    - To initialize Terraform and the IBM Cloud provider in the current directory.  You must also export environment variables for
+    the desired region and generation you wish to provision the VPC in, and provide your API key.
     
     ```shell
     export IC_REGION="us-south"
     export IC_GENERATION="1"
+    export IC_API_KEY="api_key"
     terraform init
     ```
     

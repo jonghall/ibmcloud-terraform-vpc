@@ -125,7 +125,7 @@ variable "webappserver-count" {
 ## DEFINE database tier compute instance profile & quantity
 #---------------------------------------------------------
 variable "profile-dbserver" {
-  default = "cc1-2x4"
+  default = "bc1-4x16"
 }
 
 variable "dbserver-name" {
