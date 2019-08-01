@@ -12,19 +12,19 @@ apt:
 package-update: true
 package_upgrade: true
 packages:
-- locales
-- build-essential
-- acl
-- ntp
-- htop
-- git
-- supervisor
-- python3
-- python-pip
-- python3-pip
-- mysql-client
-- mysql-server
-- python3-pymysql
+ - locales
+ - build-essential
+ - acl
+ - ntp
+ - htop
+ - git
+ - supervisor
+ - python3
+ - python-pip
+ - python3-pip
+ - mysql-client
+ - mysql-server
+ - python3-pymysql
 
 power_state:
  mode: reboot

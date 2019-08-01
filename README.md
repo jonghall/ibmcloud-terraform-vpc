@@ -54,15 +54,15 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 - The solution will implement HTTP only for simplicity.
 - A MySQL database server was implemented on Infrastructure versus as-a-service to illustrate both the ability to define logical tiers between subnets as well
 as to show the ability to automate deployment and configuration tasks.
-- Cloud-init is used for post-provisioning installation of required packages.  Bring-Your-Own-Image (BYOI) was not supported at the time of this writing.
 - Ansible is used for all post configuration tasks.
-
 
 
 ## VPC Functional Coverage
 | Function | Demonstrated | Notes |
 | -------- | ------ | ----- |
 | VPC | :white_check_mark: | |
+| Terraform | :white_check_mark: | |
+| Ansible | :white_check_mark: | |
 | Resource Groups | :white_check_mark: | Assigned, but assumed to be created already. |
 | Access Groups | :white_check_mark: | Inherited, but assumed to already be created |
 | Subnets | :white_check_mark: | |
@@ -70,11 +70,12 @@ as to show the ability to automate deployment and configuration tasks.
 | ACLs | :white_check_mark: | |
 | Security Groups | :white_check_mark: | |
 | Virtual Server Instance (VSI) | :white_check_mark: | |
+| Cloud-init | :white_check_mark: | Package installation and configuration beyond base OS image. |
+| Secondary Storage |  | Not used in this scenario |
 | Multiple Network Interfaces in VSI | :white_check_mark: | |
 | Load Balancer as a Service | :white_check_mark: | Public Only |
 | Floating IPv4 |  | Not required for workload. |
 | Public Gateway | :white_check_mark: |  |
-| Storage BYOI support (both boot and secondary) | |Base OS image with Cloud-Init instead of BYOI |
 | VPNaaS | :white_check_mark: | |
 | Cloud Internet Services (CIS) | :white_check_mark: | GLB configured for illustrative purposes with DDOS proxy |
 | IBM Cloud Monitoring with Sysdig | :white_check_mark: | Public endpoint used |
@@ -93,8 +94,8 @@ as to show the ability to automate deployment and configuration tasks.
 
 | Tier | Type | Profile |
 | ------------- | ------------- | ------- |
-| Web Server and Application  |  VSI | c-2x4 |
-| Data| VSI  | b-4x16 |
+| Web Server and Application  |  VSI | cc1-2x4 |
+| Data| VSI  | bc1-4x16 |
 
 #### Runtime Services
 
@@ -116,7 +117,7 @@ The following software needs to be installed:
 
 The following must be configured prior to running Terraform / Ansible
 1. A Public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-ssh-keys#ssh-keys).
-2. A resource group called `wordpress-demo` as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
+2. A resource group exists and is referenced in configuration as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
 3. User permissions and the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-managing-user-permissions-for-vpc-resources)
 
 ### Deploy VPC Infrastructure using Terraform & Ansible
