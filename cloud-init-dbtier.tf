@@ -26,8 +26,12 @@ packages:
 - mysql-server
 - python3-pymysql
 
-runcmd:
- - reboot
+power_state:
+ mode: reboot
+ message: Rebooting server now.
+ timeout: 30
+ condition: True
+
  EOF
   }
 }
