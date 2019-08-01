@@ -6,7 +6,7 @@ The purpose of this project is to demonstrate, through the use of a reuseable as
 and how it can enable the ability to automate deployment facilitating a more consistent and faster development, testing, and deployment of workloads into a cloud, using the
 [IBM Cloud VPC Infrastructure](https://www.ibm.com/cloud/vpc), [HashiCorp's Terraform](https://www.terraform.io/), and [Red Hat's Ansible](https://www.redhat.com/en/technologies/management/ansible).
   
-A [n-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture was chosen as a typical cloud workload for this example.   A 3-tier architecture separates the web / application and data tiers
+A [n-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture was chosen as a typical cloud workload for this example.   A n-tier architecture separates the web / application and data tiers
 by placing them into separate sub-networks which are logically isolated using virtual network security constructs which can be defined and configured via an API.   [WordPress](https://wordpress.com),
 a popular web, blog and e-commerce platform and [MySQL](https://www.mysql.com/), a typical open source database, installed on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) were chosen
 as the core software stack because to their simplicity and broad acceptance.  [Nginx](https://www.nginx.com/) and [Nginx Unit](https://www.nginx.com/products/nginx-unit/) were chosen as the Web Server
