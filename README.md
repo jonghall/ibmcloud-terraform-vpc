@@ -12,7 +12,7 @@ a popular web, blog and e-commerce platform and [MySQL](https://www.mysql.com/),
 as the core software stack because to their simplicity and broad acceptance.  [Nginx](https://www.nginx.com/) and [Nginx Unit](https://www.nginx.com/products/nginx-unit/) were chosen as the Web Server
 and Application Servers respectively.
 
-The main objectives of this project is to educate enterprise DevOps users and system administrators on how to leverage both the features of [IBM Cloud VPC Infrastructure](https://cloud.ibm.com/vpc) 
+The main objectives of this project is to educate enterprise DevOps users and system administrators on how to leverage both the features of [IBM Cloud VPC Infrastructure](https://cloud.ibm.com/docs/vpc?topic=vpc-about-vpc) 
 as well as how to use the [IBM Cloud Terraform Provider](https://github.com/IBM-Cloud/terraform-provider-ibm) and Ansible to deploy and fully configure a working n-tier application.
 
 This automated approach leveraged previous [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app) documentation.
@@ -93,7 +93,7 @@ as to show the ability to automate deployment and configuration tasks.
 
 | Tier | Type | Profile |
 | ------------- | ------------- | ------- |
-| Web Server and Application  |  VSI | b-4x16 |
+| Web Server and Application  |  VSI | c-2x4 |
 | Data| VSI  | b-4x16 |
 
 #### Runtime Services
