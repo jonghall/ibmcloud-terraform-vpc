@@ -4,7 +4,7 @@
 
 The purpose of this project is to demonstrate, through the use of a reuseable asset, the concept of [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code)
 and how it can enable the ability to automate deployment facilitating a more consistent and faster development, testing, and deployment of workloads into a cloud, using the
-[IBM Cloud VPC Infrastructure](https://cloud.ibm.com/vpc), [HashiCorp's Terraform](https://www.terraform.io/), and [Red Hat's Ansible](https://www.redhat.com/en/technologies/management/ansible).
+[IBM Cloud VPC Infrastructure](https://www.ibm.com/cloud/vpc), [HashiCorp's Terraform](https://www.terraform.io/), and [Red Hat's Ansible](https://www.redhat.com/en/technologies/management/ansible).
   
 A [n-tier](https://en.wikipedia.org/wiki/Multitier_architecture) architecture was chosen as a typical cloud workload for this example.   A 3-tier architecture separates the web / application and data tiers
 by placing them into separate sub-networks which are logically isolated using virtual network security constructs which can be defined and configured via an API.   [WordPress](https://wordpress.com),
