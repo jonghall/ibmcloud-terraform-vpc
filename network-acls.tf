@@ -1,31 +1,31 @@
 resource "ibm_is_network_acl" "default_acl" {
   name = "${var.vpc-name}-default-acl"
-
-  rules = [
+  vpc = "${ibm_is_vpc.vpc1.id}"
+  rules
     {
       name        = "${var.vpc-name}-default-deny-all-ingress"
       action      = "deny"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "ingress"
-    },
+      direction   = "inbound"
+    }
+  rules
     {
-      name        = "${var.vpc-name}-default-deny-all-egress"
-      action      = "deny"
-      source      = "0.0.0.0/0"
+      name = "${var.vpc-name}-default-deny-all-egress"
+      action = "deny"
+      source = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "egress"
-    },
-  ]
+      direction = "outbound"
+    }
 }
 
 resource "ibm_is_network_acl" "webapptier_acl" {
   name = "${var.vpc-name}-webapptier-acl"
-
-  rules = [
+  vpc = "${ibm_is_vpc.vpc1.id}"
+  rules
     {
       name      = "${var.vpc-name}-webapptier-icmp-all"
-      direction = "ingress"
+      direction = "inbound"
       action    = "allow"
       source    = "0.0.0.0/0"
 
@@ -35,10 +35,12 @@ resource "ibm_is_network_acl" "webapptier_acl" {
       }
 
       destination = "0.0.0.0/0"
-    },
-    {
+    }
+    rules
+
+      {
       name        = "${var.vpc-name}-webapptier-udp-user-ports"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
@@ -47,10 +49,11 @@ resource "ibm_is_network_acl" "webapptier_acl" {
         port_min = "1024"
         port_max = "65535"
       }
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-webapptier-tcp-user-ports"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
@@ -59,24 +62,27 @@ resource "ibm_is_network_acl" "webapptier_acl" {
         port_min = "1024"
         port_max = "65535"
       }
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-webapptier-from-vpn-network"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "${var.onprem_cidr}"
       destination = "${var.address-prefix-vpc}"
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-webapptier-within-vpc"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "${var.address-prefix-vpc}"
       destination = "${var.address-prefix-vpc}"
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-webapptier-web-http-traffic"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "${var.address-prefix-vpc}"
@@ -85,24 +91,24 @@ resource "ibm_is_network_acl" "webapptier_acl" {
         port_min = "80"
         port_max = "80"
       }
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-webapptier-allow-all-egress"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "egress"
-    },
-  ]
+      direction   = "outbound"
+    }
 }
 
 resource "ibm_is_network_acl" "dbtier_acl" {
   name = "${var.vpc-name}-dbtier-acl"
-
-  rules = [
+  vpc = "${ibm_is_vpc.vpc1.id}"
+  rules
     {
       name      = "${var.vpc-name}-dbtier-icmp-all"
-      direction = "ingress"
+      direction = "inbound"
       action    = "allow"
       source    = "0.0.0.0/0"
 
@@ -112,10 +118,11 @@ resource "ibm_is_network_acl" "dbtier_acl" {
       }
 
       destination = "0.0.0.0/0"
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-dbtier-udp-user-ports"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
@@ -124,10 +131,11 @@ resource "ibm_is_network_acl" "dbtier_acl" {
         port_min = "1024"
         port_max = "65535"
       }
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-dbtier-tcp-user-ports"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
@@ -136,48 +144,50 @@ resource "ibm_is_network_acl" "dbtier_acl" {
         port_min = "1024"
         port_max = "65535"
       }
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-dbtier-from-vpn-network"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "${var.onprem_cidr}"
       destination = "${var.address-prefix-vpc}"
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-dbtier-within-vpc"
-      direction   = "ingress"
+      direction   = "inbound"
       action      = "allow"
       source      = "${var.address-prefix-vpc}"
       destination = "${var.address-prefix-vpc}"
-    },
+    }
+    rules
     {
       name        = "${var.vpc-name}-dbtier-allow-all-egress"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "egress"
-    },
-  ]
+      direction   = "outbound"
+    }
 }
 
 resource "ibm_is_network_acl" "vpn_acl" {
   name = "${var.vpc-name}-vpn-acl"
 
-  rules = [
+  rules
     {
       name        = "${var.vpc-name}-vpn-all-ingress"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "ingress"
-    },
+      direction   = "inbound"
+    }
+  rules
     {
       name        = "${var.vpc-name}-vpn-allow-all-egress"
       action      = "allow"
       source      = "0.0.0.0/0"
       destination = "0.0.0.0/0"
-      direction   = "egress"
-    },
-  ]
+      direction   = "outbound"
+    }
 }
