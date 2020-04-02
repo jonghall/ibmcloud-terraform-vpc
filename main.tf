@@ -13,7 +13,7 @@ data "ibm_resource_group" "group" {
 resource "ibm_is_vpc" "vpc1" {
   name                = "${var.vpc-name}"
   resource_group      = "${data.ibm_resource_group.group.id}"
-  address_prefix_management = "manual"
+  default_network_acl = "${ibm_is_network_acl.default_acl.id}"
 }
 
 #---------------------------------------------------------
