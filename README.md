@@ -116,9 +116,9 @@ The following software needs to be installed:
 2. Ansible 2.8
 
 The following must be configured prior to running Terraform / Ansible
-1. A Public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-ssh-keys#ssh-keys).
+1. A Public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys).
 2. A resource group exists and is referenced in configuration as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
-3. User permissions and the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-managing-user-permissions-for-vpc-resources)
+3. User permissions and the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc?topic=vpc-managing-user-permissions-for-vpc-resources)
 
 ### Deploy VPC Infrastructure using Terraform & Ansible
 
@@ -140,13 +140,12 @@ Useful links for Terraform and Ansible
 
 Useful links for IBM Cloud VPC documentation.
 
-[Getting started with IBM Cloud Virtual Private Cloud](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-getting-started)
+[Getting started with IBM Cloud Virtual Private Cloud](https://cloud.ibm.com/docs/vpc?topic=vpc-getting-started)
 
-[Assigning role-based access to VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-assigning-role-based-access-to-vpc-resources)
+[Assigning role-based access to VPC resources](https://cloud.ibm.com/docs/vpc?topic=vpc-resource-authorizations-required-for-api-and-cli-calls)
 
-[IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference)
+[IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference)
 
-[VPC API](https://cloud.ibm.com/apidocs/vpc-on-classic)
+[VPC API](https://cloud.ibm.com/apidocs/vpc)
 
-[IBM Cloud Virtual Private Cloud API error messages](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-rias-error-messages)
 
